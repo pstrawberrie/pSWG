@@ -1,13 +1,13 @@
 --Should all created players start with God Mode? 1 = yes, 0 = no
 freeGodMode = 0;
 --How many cash credits new characters start with after creating a character (changed during test phase, normal value is 100)
-startingCash = 100
+startingCash = 5000
 --startingCash = 100000
 --How many bank credits new characters start with after creating a character (changed during test phase, normal value is 1000)
-startingBank = 1000
+startingBank = 25000
 --startingBank = 100000
 --How many skill points a new characters start with
-skillPoints = 250
+skillPoints = 269
 
 professions = {
 	"combat_brawler",
@@ -31,8 +31,6 @@ brawlerTwoHander = "object/weapon/melee/axe/axe_heavy_duty.iff"
 
 brawlerPolearm = "object/weapon/melee/polearm/lance_staff_wood_s1.iff"
 
-survivalKnife = "object/weapon/melee/knife/knife_survival.iff"
-
 genericTool = "object/tangible/crafting/station/generic_tool.iff"
 
 foodTool = "object/tangible/crafting/station/food_tool.iff"
@@ -45,7 +43,9 @@ slitherhorn = "object/tangible/instrument/slitherhorn.iff"
 
 marojMelon = "object/tangible/food/foraged/foraged_fruit_s1.iff"
 
-x31Speeder = "object/tangible/deed/vehicle_deed/landspeeder_x31_deed.iff"
+swoop = "object/tangible/deed/vehicle_deed/speederbike_swoop_deed.iff"
+
+travelPack = "object/tangible/wearables/backpack/backpack_s01.iff"
 
 professionSpecificItems = {
 	combat_brawler = { brawlerOneHander, brawlerTwoHander, brawlerPolearm },
@@ -57,4 +57,4 @@ professionSpecificItems = {
 	social_entertainer = { slitherhorn }
 }
 
-commonStartingItems = { marojMelon, survivalKnife, x31Speeder }
+commonStartingItems = { genericTool, marojMelon, swoop, travelPack }
