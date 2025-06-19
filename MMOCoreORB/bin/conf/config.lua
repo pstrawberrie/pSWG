@@ -147,7 +147,7 @@ Core3 = {
 	},
 
 	------TRE config------
-	TrePath = "home/swg/tre",
+	TrePath = "home/swg/tre", -- relative paths dont work! ie ~/swg/tre
 	TreFiles = {
 		"default_patch.tre",
 		"patch_sku1_14_00.tre",
