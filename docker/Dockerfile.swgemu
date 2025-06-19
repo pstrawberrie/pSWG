@@ -121,8 +121,7 @@ RUN useradd -m -U builder -u 44400 -G adm,sudo -s /bin/bash
 USER builder
 
 # Set default compiler to GCC 5.4 (can be overridden during build)
-ENV 
-    SHELL=/bin/bash \
+ENV SHELL=/bin/bash \
     TZ=Etc/UTC \
     LANG=C.UTF-8 \
     PORT_GROUP=44
