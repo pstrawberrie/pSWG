@@ -20,7 +20,7 @@ services:
     stdin_open: true
 
   db:
-    image: mariadb:10.5
+    image: mariadb:10.11
     environment:
       - MYSQL_ROOT_PASSWORD=123456
       - MYSQL_DATABASE=swgemu

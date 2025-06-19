@@ -1,50 +1,127 @@
 # SWGEmu Core3 Build Environment
-# Based on Ubuntu 16.04 (Xenial) to match required compiler versions
-FROM ubuntu:16.04
+FROM debian:bookworm
 
-# Prevent interactive prompts during package installation
-ENV DEBIAN_FRONTEND=noninteractive
-ENV TZ=UTC
+#USER root
 
-# Add LLVM repository for Clang 3.8
-RUN apt-get update && apt-get install -y wget software-properties-common && \
-    wget -O - https://apt.llvm.org/llvm-snapshot.gpg.key | apt-key add - && \
-    apt-add-repository "deb http://apt.llvm.org/xenial/ llvm-toolchain-xenial-3.8 main" && \
-    apt-get update
+# Prep and update system
+# Note to avoid java install failure we make the  /share/man pages: see https://github.com/kubernetes/kubernetes/issues/1806
+RUN set -xe; \
+    for i in 1 2 3 4 5 6 7 8; do mkdir -p /usr/share/man/man$i; done; \
+    export UCF_FORCE_CONFFOLD=YES; \
+    unset UCF_FORCE_CONFFNEW; \
+    export DEBIAN_FRONTEND=noninteractive; \
+    echo 'APT::Install-Recommends "0";\nAPT::Install-Suggests "0";' > /etc/apt/apt.conf.d/01norecommends; \
+    apt-get update; \
+    apt-get upgrade -y;
 
-# Install basic build tools and dependencies
-RUN apt-get install -y \
-    build-essential \
-    cmake \
-    git \
-    ninja-build \
-    clang-3.8 \
-    lldb-3.8 \
-    liblua5.3-dev \
-    libmysqlclient-dev \
-    libdb-dev \
-    openjdk-8-jdk \
-    libssl-dev \
-    zlib1g-dev \
-    libboost-all-dev \
-    libpthread-stubs0-dev \
-    libjemalloc-dev \
-    screen \
-    && rm -rf /var/lib/apt/lists/*
+# Install build packages, using clang latest stable as /usr/bin/clang etc.
+RUN set -xe; \
+    apt-get install -y apt-transport-https ca-certificates ca-certificates-java git gnupg lsb-release moreutils software-properties-common wget; \
+    wget -O /tmp/llvm.sh https://apt.llvm.org/llvm.sh; \
+    chmod +x /tmp/llvm.sh; \
+    /tmp/llvm.sh all || /tmp/llvm.sh all; \
+    (set +x;cd /usr/bin;for i in ../lib/llvm-*/bin/*; do ln -sfv $i .; done); \
+    clang --version; \
+    ld.lld --version; \
+    apt-get update; \
+    apt-get install -y --fix-missing \
+	binutils \
+	db5.3-util \
+	gdb \
+	less \
+	strace \
+	time \
+        autoconf \
+        automake \
+        autotools-dev \
+        bc \
+        binutils \
+        castxml \
+        ccache \
+        cmake \
+        cpio \
+        cppcheck \
+        curl \
+        db5.3-util \
+        dnsutils \
+        doxygen \
+        figlet \
+        file \
+        g++ \
+        gcc \
+        gcovr \
+        gdb \
+        gettext-base \
+        git-lfs \
+        git-man \
+        htop \
+        iproute2 \
+        iputils-ping \
+        jq \
+        less \
+        libboost-all-dev \
+        libc6 \
+        libc6-dev \
+        libcpprest-dev \
+        libdb5.3 \
+        libdb5.3-dev \
+        libjemalloc-dev \
+        libjemalloc2 \
+        libmariadb-dev \
+        libmariadb-dev-compat \
+        libncurses5 \
+        libncurses5-dev \
+        libpcre3 \
+        libpcre3-dev \
+        libreadline-dev \
+        libreadline6-dev \
+        libreadline8 \
+        libssl-dev \
+        libtool \
+        make \
+        man \
+        man-db \
+        manpages \
+        manpages-dev \
+        mariadb-client \
+        mariadb-server \
+        net-tools \
+        netcat\* \
+        ninja-build \
+        openssh-server \
+        pv \
+        pwgen \
+        rsync \
+        runit \
+        screen \
+        silversearcher-ag \
+        sloccount \
+        strace \
+        sudo \
+        tcpdump \
+        time \
+        traceroute \
+        tree \
+        unzip \
+        valgrind \
+        vim-nox \
+        wget \
+    ; \
+    apt-get install lua5.3 liblua5.3-0 liblua5.3-dev; \
+    apt-get install lua-inspect lua-socket lua-sec lua-filesystem lua-cjson; \
+    apt-get autoremove -y; \
+    rm -rf /var/lib/apt/lists/* /var/log/dpkg.log* /var/log/apt/*;
 
 # Set up build environment
 WORKDIR /build
-
-# Copy files @FUTURE: copy the tre files if needed?
-#COPY /PATH-TO-TRE-FILES-HERE /home/pstraw/tre
 
 # Create a non-root user for security
 RUN useradd -m -s /bin/bash builder
 USER builder
 
 # Set default compiler to GCC 5.4 (can be overridden during build)
-ENV CC=gcc-5
-ENV CXX=g++-5
+#ENV CC=gcc-5
+#ENV CXX=g++-5
 
 # Default command (can be overridden by docker-compose)
 CMD ["/bin/bash"]
