@@ -1,7 +1,7 @@
 # SWGEmu Core3 Build Environment
 FROM debian:bookworm
 
-#USER root
+USER root
 
 # Prep and update system
 # Note to avoid java install failure we make the  /share/man pages: see https://github.com/kubernetes/kubernetes/issues/1806
@@ -116,12 +116,16 @@ RUN set -xe; \
 WORKDIR /build
 
 # Create a non-root user for security
-RUN useradd -m -s /bin/bash builder
+#RUN useradd -m -s /bin/bash builder
+RUN useradd -m -U builder -u 44400 -G adm,sudo -s /bin/bash
 USER builder
 
 # Set default compiler to GCC 5.4 (can be overridden during build)
-#ENV CC=gcc-5
-#ENV CXX=g++-5
+ENV 
+    SHELL=/bin/bash \
+    TZ=Etc/UTC \
+    LANG=C.UTF-8 \
+    PORT_GROUP=44
 
 # Default command (can be overridden by docker-compose)
 CMD ["/bin/bash"]
