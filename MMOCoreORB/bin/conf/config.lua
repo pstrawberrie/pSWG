@@ -147,7 +147,7 @@ Core3 = {
 	},
 
 	------TRE config------
-	TrePath = "/build/ppswg/tre",
+	TrePath = "~/ppswg/tre",
 	TreFiles = {
 		"default_patch.tre",
 		"patch_sku1_14_00.tre",
