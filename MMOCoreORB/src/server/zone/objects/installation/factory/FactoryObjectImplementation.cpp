@@ -567,7 +567,8 @@ bool FactoryObjectImplementation::startFactory() {
 	info(true) << "Factory Testing Timer Set To: " << timer;
 #else
 	// timer = ((int)schematic->getComplexity()) * 8;
-	timer = 1;
+	// timer = 1;
+	timer = 0; // TESTING, REVERT
 #endif
 
 	if (!populateSchematicBlueprint(schematic))
