@@ -183,23 +183,24 @@ void PlanetManagerImplementation::loadLuaConfig() {
 	luaObject.pop();
 
 	// Configure shuttleport timing
-	if ((shuttleportAwayTime = lua->getGlobalInt("shuttleportAwayTime")) <= 0)
+	// Infinity: Changed <=0 to < 0 for our zero wait times
+	if ((shuttleportAwayTime = lua->getGlobalInt("shuttleportAwayTime")) < 0)
 		shuttleportAwayTime = 300;
 
-	if ((shuttleportLandedTime = lua->getGlobalInt("shuttleportLandedTime")) <= 0)
+	if ((shuttleportLandedTime = lua->getGlobalInt("shuttleportLandedTime")) < 0)
 		shuttleportLandedTime = 120;
 
-	if ((shuttleportLandingTime = lua->getGlobalInt("shuttleportLandingTime")) <= 0)
+	if ((shuttleportLandingTime = lua->getGlobalInt("shuttleportLandingTime")) < 0)
 		shuttleportLandingTime = 11;
 
 	// Configure starport timing
-	if ((starportAwayTime = lua->getGlobalInt("starportAwayTime")) <= 0)
+	if ((starportAwayTime = lua->getGlobalInt("starportAwayTime")) < 0)
 		starportAwayTime = 60;
 
-	if ((starportLandedTime = lua->getGlobalInt("starportLandedTime")) <= 0)
+	if ((starportLandedTime = lua->getGlobalInt("starportLandedTime")) < 0)
 		starportLandedTime = 120;
 
-	if ((starportLandingTime = lua->getGlobalInt("starportLandingTime")) <= 0)
+	if ((starportLandingTime = lua->getGlobalInt("starportLandingTime")) < 0)
 		starportLandingTime = 14;
 
 #if DEBUG_TRAVEL
