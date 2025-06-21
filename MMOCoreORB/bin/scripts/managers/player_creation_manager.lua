@@ -51,8 +51,6 @@ swoop = "object/tangible/deed/vehicle_deed/speederbike_swoop_deed.iff"
 
 travelPack = "object/tangible/wearables/backpack/backpack_s01.iff"
 
-neutralShip = "object/ship/player/player_hutt_light_s01.iff"
-
 professionSpecificItems = {
 	combat_brawler = { brawlerOneHander, brawlerTwoHander, brawlerPolearm },
 	combat_marksman = { marksmanPistol, marksmanCarbine, marksmanRifle },
@@ -63,4 +61,4 @@ professionSpecificItems = {
 	social_entertainer = { slitherhorn }
 }
 
-commonStartingItems = { genericTool, marojMelon, flurrOnion, x31Speeder, swoop, neutralShip, travelPack }
+commonStartingItems = { genericTool, marojMelon, flurrOnion, x31Speeder, swoop, travelPack }
