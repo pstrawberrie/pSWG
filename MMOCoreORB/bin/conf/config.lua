@@ -248,6 +248,11 @@ Core3 = {
 	------TOS Config------
 	TermsOfServiceVersion = 0,
 	TermsOfService = "",
+
+	------JTL------
+	JTL = {
+		JTLEnabled = "true"
+	},
 }
 
 -- NOTE: conf/config-local.lua is parsed after this file if it exists
