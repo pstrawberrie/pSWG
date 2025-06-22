@@ -70,7 +70,40 @@ public:
 			return GENERALERROR;
 		}
 
-		if (!shuttle->isInRange(creature, 25.f)) {
+		// Infinity:  Custom Boarding checks
+		float boardingRange = 90.0;
+
+		if (creature->getParent() == nullptr) {
+        	boardingRange = 40.0; //If they are outside, the range is decreased to 40m.
+
+			TerrainManager* terrainManager = planetManager->getTerrainManager();   //Make sure they are not on top of a structure
+			if (terrainManager != nullptr) {
+				float creatureX = creature->getWorldPositionX();
+				float creatureY = creature->getWorldPositionY();
+				float creatureZ= creature->getWorldPositionZ();
+
+				float height = terrainManager->getHeight(creatureX, creatureY);
+				float heightDifference = creatureZ - height;
+				if (heightDifference > 7.0) {
+					creature->sendSystemMessage("You are too far above the ground to board.");
+					return GENERALERROR;
+				}
+			}
+		}
+		else {
+			ManagedReference<CityRegion*> city = creature->getCityRegion().get();
+
+			bool inPlayerCity = false;
+			if (city != nullptr) 
+				inPlayerCity = !city->isClientRegion();
+
+   			if (creature->getParent() != nullptr && inPlayerCity) {
+				creature->sendSystemMessage("You cannot board a shuttle while inside player housing or player city structures.");
+  				return GENERALERROR;
+  			}
+		}
+
+		if (!shuttle->isInRange(creature, boardingRange)) {
 			creature->sendSystemMessage("@player_structure:boarding_too_far"); //You are too far from the shuttle to board.
 			return GENERALERROR;
 		}
