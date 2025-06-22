@@ -5,3 +5,4 @@ luacov.stats.out
 .cache
 compile_commands.json
 tre/
+.vscode/

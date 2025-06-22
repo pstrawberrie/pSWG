@@ -147,7 +147,7 @@ Core3 = {
 	},
 
 	------TRE config------
-	TrePath = "home/swg/tre", -- relative paths dont work! ie ~/swg/tre
+	TrePath = "/home/swg/tre", -- relative paths dont work! ie ~/swg/tre
 	TreFiles = {
 		"default_patch.tre",
 		"patch_sku1_14_00.tre",
@@ -248,6 +248,11 @@ Core3 = {
 	------TOS Config------
 	TermsOfServiceVersion = 0,
 	TermsOfService = "",
+
+	------JTL------
+	JTL = {
+		JTLEnabled = "true"
+	},
 }
 
 -- NOTE: conf/config-local.lua is parsed after this file if it exists
