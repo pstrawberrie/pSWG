@@ -249,6 +249,17 @@ Core3 = {
 	TermsOfServiceVersion = 0,
 	TermsOfService = "",
 
+	------Game------
+	PlayerManager = {
+		WipeFillingOnClone = 1,
+		GalaxyWideGrouping = 1,
+	},
+
+	MissionManager = {
+		ListRequestCooldown = 690,
+		PlayerBountyCooldownTime = 3600000, -- 1 hour
+	},
+
 	------JTL------
 	JTL = {
 		JTLEnabled = "true"
