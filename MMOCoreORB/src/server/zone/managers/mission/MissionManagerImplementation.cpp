@@ -204,7 +204,7 @@ void MissionManagerImplementation::handleMissionListRequest(MissionTerminal* mis
 	if (missionBag == nullptr)
 		return;
 
-	int maximumNumberOfItemsInMissionBag = 24; // Match infinity code
+	int maximumNumberOfItemsInMissionBag = 48; // Match syndicate code
 
 
 	if (enableFactionalCraftingMissions) {
@@ -834,16 +834,30 @@ void MissionManagerImplementation::randomizeGenericDestroyMission(CreatureObject
 	int diffDisplay = difficultyLevel < 5 ? 4 : difficultyLevel;
 
 	if (player->isGrouped()) {
-		bool includeFactionPets = faction != Factions::FACTIONNEUTRAL || ConfigManager::instance()->includeFactionPetsForMissionDifficulty();
-		Reference<GroupObject*> group = player->getGroup();
+		// destroy-mission-tools: commented out original
+		// bool includeFactionPets = faction != Factions::FACTIONNEUTRAL || ConfigManager::instance()->includeFactionPetsForMissionDifficulty();
+		// Reference<GroupObject*> group = player->getGroup();
 
-		if (group != nullptr) {
-			Locker locker(group);
-			diffDisplay += group->getGroupLevel(includeFactionPets);
-		}
+		// if (group != nullptr) {
+		// 	Locker locker(group);
+		// 	diffDisplay += group->getGroupLevel(includeFactionPets);
+		// }
+
+		diffDisplay += player->getGroup()->getGroupLevel();
 	} else {
 		diffDisplay += playerLevel;
 	}
+
+	// destroy-mission-tools: start addition
+	String dir;
+	float dirChoice = 0.0f;
+	PlayerObject* ghost = player->getPlayerObject();
+
+	if (ghost != nullptr) {
+		dir = ghost->getScreenPlayData("mission_direction_choice", "directionChoice");
+		dirChoice = Float::valueOf(dir);
+	}
+	// destroy-mission-tools: end addition
 
 	String building = lairTemplateObject->getMissionBuilding(difficulty);
 
@@ -871,7 +885,46 @@ void MissionManagerImplementation::randomizeGenericDestroyMission(CreatureObject
 
 		int distance = destroyMissionBaseDistance + destroyMissionDifficultyDistanceFactor * difficultyLevel;
 		distance += System::random(destroyMissionRandomDistance) + System::random(destroyMissionDifficultyRandomDistance * difficultyLevel);
-		startPos = player->getWorldCoordinate((float)distance, (float)System::random(360), false);
+		// destroy-mission-tools: commented out original
+		// startPos = player->getWorldCoordinate((float)distance, (float)System::random(360), false);
+
+		// destroy-mission-tools: start addition
+		// Use the dirChoice if it's set, otherwise use random direction
+		// Small variation for stability
+		float direction = 0.0f;
+		if (dirChoice != 0) {
+			int variation = System::random(3) - 1;
+			direction = dirChoice + variation;
+			
+			// Normalize to 0-360 range
+			if (direction < 0)
+				direction += 360;
+			else if (direction >= 360)
+					direction -= 360;
+		} else {
+			// Generate a random direction between 0-360 degrees
+			direction = System::random(360);
+		}
+
+		// Calculate position using absolute world coordinates instead of player-relative
+		// Get player's current position
+		float playerX = player->getWorldPositionX();
+		float playerY = player->getWorldPositionY();
+		
+		// Calculate target position using absolute direction angle
+		// Standard angle to coordinate conversion:
+		// 0/360 = North (positive Y)
+		// 90 = West (negative X)
+		// 180 = South (negative Y)
+		// 270 = East (positive X)
+		float angleRadians = direction * (M_PI / 180.0f);
+		float targetX = playerX - (distance * sin(angleRadians));
+		float targetY = playerY + (distance * cos(angleRadians));
+		
+		startPos.setX(targetX);
+		startPos.setY(targetY);
+		startPos.setZ(0); // Height will be determined later
+		// destroy-mission-tools: end addition
 
 		if (zone->isWithinBoundaries(startPos)) {
 			float height = zone->getHeight(startPos.getX(), startPos.getY());
@@ -1891,15 +1944,32 @@ LairSpawn* MissionManagerImplementation::getRandomLairSpawn(CreatureObject* play
 	int counter = availableLairList->size();
 	int playerLevel = server->getPlayerManager()->calculatePlayerLevel(player);
 
-	if (player->isGrouped()) {
-		bool includeFactionPets = faction != Factions::FACTIONNEUTRAL || ConfigManager::instance()->includeFactionPetsForMissionDifficulty();
-		Reference<GroupObject*> group = player->getGroup();
+	// destroy-mission-tools: commented out original
+	// if (player->isGrouped()) {
+	// 	bool includeFactionPets = faction != Factions::FACTIONNEUTRAL || ConfigManager::instance()->includeFactionPetsForMissionDifficulty();
+	// 	Reference<GroupObject*> group = player->getGroup();
 
-		if (group != nullptr) {
-			Locker locker(group);
-			playerLevel = group->getGroupLevel(includeFactionPets);
-		}
+	// 	if (group != nullptr) {
+	// 		Locker locker(group);
+	// 		playerLevel = group->getGroupLevel(includeFactionPets);
+	// 	}
+	// }
+
+	// destroy-mission-tools: start addition
+	PlayerObject* ghost = player->getPlayerObject();
+	int levelChoice = 0;
+	
+	if (ghost != nullptr) {
+		String level = ghost->getScreenPlayData("mission_level_choice", "levelChoice");
+		levelChoice = Integer::valueOf(level);
 	}
+
+	if (levelChoice != 0) {
+		playerLevel = levelChoice;
+	} else if (player->isGrouped()) {
+		playerLevel = player->getGroup()->getGroupLevel();
+	}
+	// destroy-mission-tools: end addition
 
 	LairSpawn* lairSpawn = nullptr;
 

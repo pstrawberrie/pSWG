@@ -730,5 +730,9 @@ includeFile("tests/ai_test.lua")
 -- Server Event Automation
 includeFile("events/ServerEventAutomation.lua")
 
+-- ppSWG
+includeFile("custom_content/tools/mission_direction_choice.lua")
+includeFile("custom_content/tools/mission_level_choice.lua")
+
 -- Custom content - Loads last to allow for overrides
 includeFile("../custom_scripts/screenplays/screenplays.lua")
