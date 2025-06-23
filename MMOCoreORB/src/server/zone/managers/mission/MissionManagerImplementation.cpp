@@ -943,14 +943,17 @@ void MissionManagerImplementation::randomizeGenericDestroyMission(CreatureObject
 
 	//CL and mob names on lair (match Infinity)
 	String groupSuffix;
+	String groupPrefix;
 
 	if (lairTemplateObject->getMobType() == LairTemplate::NPC) {
 		missionType = "_npc";
-		groupSuffix = " camp.";
+		groupPrefix = " Eliminate the ";
+		groupSuffix = "s";
 	}
 	else {
 		missionType = "_creature";
-		groupSuffix = " nest.";
+		groupPrefix = " Hunt ";
+		groupSuffix = "s";
 	}
 
 	const VectorMap<String, int>* mobiles = lairTemplateObject->getMobiles();
@@ -961,7 +964,7 @@ void MissionManagerImplementation::randomizeGenericDestroyMission(CreatureObject
 	}
 
 	// mission->setMissionTitle("mission/mission_destroy_neutral" + messageDifficulty + missionType, "m" + String::valueOf(randTexts) + "t");
-	mission->setMissionTitle("CL" + String::valueOf(diffDisplay), " Scrub the " + mobileName.replaceAll("_", " ") + groupSuffix);  //Infinity:  Custom CL and creature names
+	mission->setMissionTitle("CL" + String::valueOf(diffDisplay), groupPrefix + mobileName.replaceAll("_", " ") + groupSuffix);  //Infinity:  Custom CL and creature names
 	mission->setMissionDescription("mission/mission_destroy_neutral" +  messageDifficulty + missionType, "m" + String::valueOf(randTexts) + "d");
 
 	switch (faction) {
