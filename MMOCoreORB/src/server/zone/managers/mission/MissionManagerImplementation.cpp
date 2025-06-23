@@ -944,12 +944,14 @@ void MissionManagerImplementation::randomizeGenericDestroyMission(CreatureObject
 	//CL and mob names on lair (match Infinity)
 	String groupSuffix;
 
-	if (lairTemplateObject->getMobType() == LairTemplate::NPC)
+	if (lairTemplateObject->getMobType() == LairTemplate::NPC) {
 		missionType = "_npc";
 		groupSuffix = " camp.";
-	else
+	}
+	else {
 		missionType = "_creature";
 		groupSuffix = " nest.";
+	}
 
 	// mission->setMissionTitle("mission/mission_destroy_neutral" + messageDifficulty + missionType, "m" + String::valueOf(randTexts) + "t");
 	mission->setMissionTitle("CL" + String::valueOf(diffDisplay), " Scrub the " + mobileName.replaceAll("_", " ") + groupSuffix);  //Infinity:  Custom CL and creature names
