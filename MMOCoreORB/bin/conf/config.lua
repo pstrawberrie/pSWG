@@ -256,7 +256,7 @@ Core3 = {
 	},
 
 	MissionManager = {
-		ListRequestCooldown = 690,
+		ListRequestCooldown = 1000,
 		PlayerBountyCooldownTime = 3600000, -- 1 hour
 	},
 
