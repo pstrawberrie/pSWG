@@ -947,7 +947,7 @@ void MissionManagerImplementation::randomizeGenericDestroyMission(CreatureObject
 
 	if (lairTemplateObject->getMobType() == LairTemplate::NPC) {
 		missionType = "_npc";
-		groupPrefix = " Eliminate the ";
+		groupPrefix = " Eliminate ";
 		groupSuffix = "s";
 	}
 	else {
