@@ -1309,7 +1309,7 @@ void MissionManagerImplementation::randomizeGenericBountyMission(CreatureObject*
 
 		// ppswg bh mission titles
 		mission->setCreatorName(creatorName);
-		mission->setMissionTitle("Difficulty " + String::valueOf(missionDiff), "Kill " + npcTargetName);
+		mission->setMissionTitle("Difficulty " + String::valueOf(missionDiff), " Kill " + npcTargetName);
 		// mission->setMissionTitle(stfFile + diffString, "m" + String::valueOf(randTexts) + "t");
 		mission->setMissionDescription(stfFile + diffString, "m" + String::valueOf(randTexts) + "d");
 	}
