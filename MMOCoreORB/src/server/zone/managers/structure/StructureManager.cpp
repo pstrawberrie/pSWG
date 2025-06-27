@@ -1061,7 +1061,14 @@ void StructureManager::reportStructureStatus(CreatureObject* creature, Structure
 			}
 		}
 
-		status->addMenuItem("@player_structure:items_in_building_prompt " + String::valueOf(building->getCurrentNumberOfPlayerItems())); // Number of Items in Building:
+		// status->addMenuItem("@player_structure:items_in_building_prompt " + String::valueOf(building->getCurrentNumberOfPlayerItems())); // Number of Items in Building:
+
+		status->addMenuItem(//Infinity:   Showing number of items / max items
+			"@player_structure:items_in_building_prompt "
+			+ String::valueOf(building->getCurrentNumberOfPlayerItems())
+			+ "/"
+			+ String::valueOf(building->getMaximumNumberOfPlayerItems())
+ 		); 
 
 #if ENABLE_STRUCTURE_JSON_EXPORT
 		if (creature->hasSkill("admin_base")) {
