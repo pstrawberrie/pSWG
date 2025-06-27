@@ -256,6 +256,10 @@ Core3 = {
 		GalaxyWideGrouping = 1,
 	},
 
+	StructureManager = {
+		EnhancedFurnitureRotate = 1
+	},
+
 	MissionManager = {
 		ListRequestCooldown = 1000,
 		PlayerBountyCooldownTime = 3600000, -- 1 hour
