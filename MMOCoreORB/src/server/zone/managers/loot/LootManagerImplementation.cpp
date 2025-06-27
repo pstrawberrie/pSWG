@@ -437,32 +437,6 @@ TangibleObject* LootManagerImplementation::createLootObject(TransactionLog& trx,
 		addConditionDamage(prototype);
 	}
 
-	// ppswg Attachment Names Added to Attachments / tapes / ca/aa
-	// thanks to dsDan @ swgemu discord for giving this 2025 example
-	if (prototype != nullptr && prototype->isAttachment()) {
-			Attachment* attachment = cast<Attachment*>(prototype.get());
-			VectorMap<String, int>* skillModifiers = attachment->getSkillMods();
-			StringId attachmentName;
-			String key = "";
-			String attachmentType = "[AA] ";
-			String attachmentCustomName = "";
-			int highest = -1;
-			if (attachment->isClothingAttachment()) {
-					attachmentType = "[CA] ";
-			}
-			for (int i = 0; i < skillModifiers->size(); i++) {
-					auto key = skillModifiers->elementAt(i).getKey();
-					auto value = skillModifiers->elementAt(i).getValue();
-					if (value > highest){
-							highest = value;
-							attachmentName.setStringId("stat_n", key);
-							prototype->setObjectName(attachmentName, false);
-							attachmentCustomName =  prototype->getDisplayedName() + " :" + String::valueOf(value) + " " + attachmentType;
-					}
-			}
-			prototype->setCustomObjectName(attachmentCustomName, false);
-	}
-
 	trx.addState("lootAdjustment", chance);
 	trx.addState("lootExcMod", excMod);
 	trx.addState("lootJunkValue", prototype->getJunkValue());
