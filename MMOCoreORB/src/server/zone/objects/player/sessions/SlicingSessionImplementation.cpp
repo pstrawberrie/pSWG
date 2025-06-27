@@ -209,9 +209,6 @@ void SlicingSessionImplementation::handleMenuSelect(CreatureObject* pl, byte men
 			if (tangibleObject->isArmorObject()) {
 				ArmorObject* armo = cast<ArmorObject*>(tangibleObject.get());
 				Locker locker(armo);
-				
-				if (armo->hasPowerup())
-					this->detachPowerUp(player, armo);
 					
 				armo->setSliced(true);
 			}
@@ -777,7 +774,7 @@ void SlicingSessionImplementation::handleArmorSlice(int sliceType) {
 	if (tangibleObject == nullptr || player == nullptr)
 		return;
 
-	uint8 sliceType = System::random(1);
+	// uint8 sliceType = System::random(1);
 	int sliceSkill = getSlicingSkill(player);
 	uint8 min = 0;
 	uint8 max = 0;
