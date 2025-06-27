@@ -87,6 +87,40 @@ void AttachmentImplementation::updateCraftingValues(CraftingValues* values, bool
 
 		skillModifiers.put(modName, ((mod <= 0) ? 1 : mod));
 	}
+
+	// ppswg attachment names
+	// thanks to sr2 example: https://github.com/swgsremu/sentinelsrepublic-server/blob/0b3db1fa8df5bf782116924becad5562da713605/MMOCoreORB/src/server/zone/objects/tangible/attachment/AttachmentImplementation.cpp#L114
+	if (skillModifiers.size() > 0) {
+    auto entry = skillModifiers.elementAt(0);
+    String skillMod = entry.getKey();
+    int modValue = entry.getValue();
+
+    StringId stringId("stat_n", skillMod);
+    UnicodeString uLocalizedName = StringIdManager::instance()->getStringId(stringId);
+    String localizedName = uLocalizedName.toString();
+
+    // Fallback if localization fails
+    if (localizedName.isEmpty() || localizedName.beginsWith("stat_n:")) {
+        localizedName = skillMod.replaceAll("_", " ");
+        localizedName[0] = Character::toUpperCase(localizedName[0]);
+    }
+
+    // Get the object's template name safely
+    String templateName = getObjectTemplate()->getFullTemplateString();
+
+    // Determine prefix
+    String prefix = "";
+    if (templateName.contains("armor")) {
+        prefix = "[AA] ";
+    } else if (templateName.contains("clothing")) {
+        prefix = "[CA] ";
+    }
+
+    String finalName = prefix + localizedName + " +" + String::valueOf(modValue);
+    finalName += " Attachment";
+
+    setCustomObjectName(finalName, true);
+	}
 }
 
 void AttachmentImplementation::fillAttributeList(AttributeListMessage* msg, CreatureObject* object) {
