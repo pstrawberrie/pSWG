@@ -199,6 +199,31 @@ void SlicingSessionImplementation::handleMenuSelect(CreatureObject* pl, byte men
 		return;
 	}
 
+	// Check if this is the armor slice choice menu
+	if (suiBox->getPromptTitle() == "Armor Slice Options") {
+		if (menuID == 0 || menuID == 1) {
+			handleArmorSlice(menuID);
+		} else {
+			// If the player cancels, mark the object as sliced but don't apply any mods
+			// This ensures they can't exploit the system for XP without actually slicing
+			if (tangibleObject->isArmorObject()) {
+				ArmorObject* armo = cast<ArmorObject*>(tangibleObject.get());
+				Locker locker(armo);
+				
+				if (armo->hasPowerup())
+					this->detachPowerUp(player, armo);
+					
+				armo->setSliced(true);
+			}
+
+			// End the session on cancel
+			tangibleObject->notifyObservers(ObserverEventType::SLICED, player, 0);
+			endSlicing();
+		}
+
+		return;
+	}
+
 	if (progress == 0) {
 		switch(menuID) {
 		case 0: {
@@ -540,20 +565,20 @@ void SlicingSessionImplementation::handleSlice(SuiListBox* suiBox) {
 		// Don't end the session here - let handleWeaponSlice do that after the player selects the slice type
 		return;
 	} else if (tangibleObject->isArmorObject()) {
-		// Add the examine message to the success window
-		suiBox->removeAllMenuItems();
-		suiBox->setCancelButton(false,"@cancel");
-
-		StringBuffer prompt;
-		prompt << "@slicing/slicing:";
-		prompt << getPrefix(tangibleObject) + "examine";
-		suiBox->setPromptText(prompt.toString());
-
-		player->getPlayerObject()->addSuiBox(suiBox);
-		player->sendMessage(suiBox->generateMessage());
-
-		handleArmorSlice();
+		// handleArmorSlice();
+		
+		// For armor, DO NOT show the original success window
+		// Instead, close the original window by removing it from the player
+		player->getPlayerObject()->removeSuiBoxType(SuiWindowType::SLICING_MENU);
+		
+		// Award XP for the successful slice before showing choice menu
 		playerManager->awardExperience(player, "slicing", 250, true); // Armor Slice XP
+
+		// Show choice menu without ending the session
+		showArmorSliceMenu();
+		
+		// Don't end the session here - let handleArmorSlice do that after the player selects the slice type
+		return;
 	} else if ( isBaseSlice()){
 		// Add the examine message to the success window
 		suiBox->removeAllMenuItems();
@@ -603,6 +628,28 @@ void SlicingSessionImplementation::showWeaponSliceMenu() {
 	
 	choiceBox->addMenuItem("Damage Modification", 0); // Damage modification
 	choiceBox->addMenuItem("Speed Modification", 1);  // Speed modification
+	
+	player->getPlayerObject()->addSuiBox(choiceBox);
+	player->sendMessage(choiceBox->generateMessage());
+}
+
+void SlicingSessionImplementation::showArmorSliceMenu() {
+	ManagedReference<CreatureObject*> player = this->player.get();
+	ManagedReference<TangibleObject*> tangibleObject = this->tangibleObject.get();
+
+	if (player == nullptr || tangibleObject == nullptr || !tangibleObject->isArmorObject())
+		return;
+
+	// Create SUI Menu for armor slice choice
+	ManagedReference<SuiListBox*> choiceBox = new SuiListBox(player, SuiWindowType::SLICING_MENU, 2);
+	choiceBox->setCallback(new SlicingSessionSuiCallback(player->getZoneServer()));
+	choiceBox->setPromptTitle("Armor Slice Options");
+	choiceBox->setPromptText("Select the type of modification you wish to make to this armor:");
+	choiceBox->setUsingObject(tangibleObject);
+	choiceBox->setCancelButton(true, "@cancel");
+	
+	choiceBox->addMenuItem("Effectiveness Modification", 0); // Effectiveness modification
+	choiceBox->addMenuItem("Encumbrance Modification", 1);  // Encumbrance modification
 	
 	player->getPlayerObject()->addSuiBox(choiceBox);
 	player->sendMessage(choiceBox->generateMessage());
@@ -723,7 +770,7 @@ void SlicingSessionImplementation::handleSliceSpeed(uint8 percent) {
 	player->sendSystemMessage(params);
 }
 
-void SlicingSessionImplementation::handleArmorSlice() {
+void SlicingSessionImplementation::handleArmorSlice(int sliceType) {
 	ManagedReference<CreatureObject*> player = this->player.get();
 	ManagedReference<TangibleObject*> tangibleObject = this->tangibleObject.get();
 
@@ -759,7 +806,15 @@ void SlicingSessionImplementation::handleArmorSlice() {
 	case 1:
 		handleSliceEncumbrance(percent);
 		break;
+	default:
+		// Default to effectiveness if somehow an invalid option is passed
+		handleSliceEffectiveness(percent);
+		break;
 	}
+
+	// End the slicing session
+	tangibleObject->notifyObservers(ObserverEventType::SLICED, player, 1);
+	endSlicing();
 }
 
 void SlicingSessionImplementation::handleSliceEncumbrance(uint8 percent) {
