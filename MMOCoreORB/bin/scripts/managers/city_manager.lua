@@ -231,23 +231,23 @@ CitySpecializations = {
 		skillMods = {
 			{"private_spec_assembly", 10},
 			{"private_spec_experimentation", 15},
-			{"private_medical_rating", 10},
-			{"private_spec_entertainer", 10},
+			{"private_medical_rating", 15},
+			{"private_spec_entertainer", 15},
 			{"private_spec_samplesize", 25},
 			{"private_spec_samplerate", 10},
-			{"private_spec_cloning", 20}
+			{"private_spec_cloning", 50}
 		}
 	},
 	{--Improved Job Market
 		name = "@city/city:city_spec_missions",-- ppswg renamed spec to "Expedition Frontier" in tre file
 		cost = 50000,-- ppswg changed to 50000, added specs
 		skillMods = {
-			{"private_spec_missions", 15},
-			{"private_medical_rating", 10},
-			{"private_spec_entertainer", 10},
+			{"private_spec_missions", 20},
+			{"private_medical_rating", 15},
+			{"private_spec_entertainer", 15},
 			{"private_spec_samplesize", 25},
 			{"private_spec_samplerate", 10},
-			{"private_spec_cloning", 20}
+			{"private_spec_cloning", 50}
 		}
 	},
 	-- {--Entertainment District
@@ -266,11 +266,11 @@ CitySpecializations = {
 		cost = 50000,-- ppswg changed to 50000, added specs
 		skillMods = {
 			{"private_defense", 90},
-			{"private_medical_rating", 10},
-			{"private_spec_entertainer", 10},
+			{"private_medical_rating", 15},
+			{"private_spec_entertainer", 15},
 			{"private_spec_samplesize", 25},
 			{"private_spec_samplerate", 10},
-			{"private_spec_cloning", 20}
+			{"private_spec_cloning", 50}
 		}
 	},
 }
