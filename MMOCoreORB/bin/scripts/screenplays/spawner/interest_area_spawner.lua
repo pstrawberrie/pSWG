@@ -6,7 +6,7 @@ InterestAreaSpawner = ScreenPlay:new {
 	screenplayName = "",
 	zoneName = "",
 
-	startDelay = 10, -- Minutes
+	startDelay = 1, -- Minutes
 
 	-- Chance out of 100 that a spawner has to be activate upon server start. 100 is always activated
 	activationChance = 100,
