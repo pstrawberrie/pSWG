@@ -228,26 +228,31 @@ void SurveySessionImplementation::startSample(const String& resname) {
 	message.setTO(lastResourceSampleName);
 	surveyer->sendSystemMessage(message);
 
-	if (!doGamble && richSampleLocation.getPosition() == Vector3(0, 0, 0) && System::random(50) == 7) {
+	// ppswg remove sampling minigame
+	// if (!doGamble && richSampleLocation.getPosition() == Vector3(0, 0, 0) && System::random(50) == 7) {
 
-		if (ghost->hasSuiBoxWindowType(SuiWindowType::SURVEY_TOOL_CONCENTRATED_MINIGAME)) {
-			ghost->removeSuiBoxType(SuiWindowType::SURVEY_TOOL_CONCENTRATED_MINIGAME);
-		}
+	// 	if (ghost->hasSuiBoxWindowType(SuiWindowType::SURVEY_TOOL_CONCENTRATED_MINIGAME)) {
+	// 		ghost->removeSuiBoxType(SuiWindowType::SURVEY_TOOL_CONCENTRATED_MINIGAME);
+	// 	}
 
-		if (ghost->hasSuiBoxWindowType(SuiWindowType::SURVEY_TOOL_CONCENTRATED_MINIGAME2)) {
-			ghost->removeSuiBoxType(SuiWindowType::SURVEY_TOOL_CONCENTRATED_MINIGAME2);
-		}
+	// 	if (ghost->hasSuiBoxWindowType(SuiWindowType::SURVEY_TOOL_CONCENTRATED_MINIGAME2)) {
+	// 		ghost->removeSuiBoxType(SuiWindowType::SURVEY_TOOL_CONCENTRATED_MINIGAME2);
+	// 	}
 
-		if (System::random(1) == 1)
-			surveyCnodeMinigameSui();
-		else
-			surveyGnodeMinigameSui();
+	// 	if (System::random(1) == 1)
+	// 		surveyCnodeMinigameSui();
+	// 	else
+	// 		surveyGnodeMinigameSui();
 
-	} else {
+	// } else {
 
-		if (!lastResourceSampleName.isEmpty())
-			resourceManager->sendSample(surveyer, lastResourceSampleName,
-					activeSurveyTool->getSampleAnimation());
+	// 	if (!lastResourceSampleName.isEmpty())
+	// 		resourceManager->sendSample(surveyer, lastResourceSampleName,
+	// 				activeSurveyTool->getSampleAnimation());
+	// }
+
+	if (!lastResourceSampleName.isEmpty()) {
+		resourceManager->sendSample(surveyer, lastResourceSampleName, activeSurveyTool->getSampleAnimation());
 	}
 }
 

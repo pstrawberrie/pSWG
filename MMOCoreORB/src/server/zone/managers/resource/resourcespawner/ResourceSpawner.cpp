@@ -997,7 +997,7 @@ void ResourceSpawner::sendSampleResults(TransactionLog& trx, CreatureObject* pla
 	float cityMultiplier = 1.f + player->getSkillMod("private_spec_samplesize") / 100.f;
 
 	int unitsExtracted = maxUnitsExtracted * (float(surveySkill) / 100.0f) * samplingMultiplier * cityMultiplier;
-	int xpcap = 100; // ppswg increase xp cap
+	int xpcap = 150; // ppswg increase xp cap
 
 	if (session->tryGamble()) {
 		if (System::random(2) == 1) {
@@ -1007,7 +1007,7 @@ void ResourceSpawner::sendSampleResults(TransactionLog& trx, CreatureObject* pla
 			player->sendSystemMessage("@survey:gamble_fail");
 		}
 		session->clearGamble();
-		xpcap = 50;
+		xpcap = 200; // ppswg increase xp cap
 	}
 
 	if (richSampleLocation != nullptr && richSampleLocation->getPosition() != Vector3(0, 0, 0)) {
@@ -1020,7 +1020,7 @@ void ResourceSpawner::sendSampleResults(TransactionLog& trx, CreatureObject* pla
 		}
 
 		session->clearRichSampleLocation();
-		xpcap = 50;
+		xpcap = 200;
 	}
 
 	if (unitsExtracted < 2) {
