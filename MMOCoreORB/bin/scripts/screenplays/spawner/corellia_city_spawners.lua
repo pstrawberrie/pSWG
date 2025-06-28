@@ -5,10 +5,10 @@ CorelliaCitySpawners = InterestAreaSpawner:new {
 	zoneName = "corellia",
 
 	-- Chance out of 100 that a spawner has to be activate upon server start. 100 is always activated
-	activationChance = 65,
+	activationChance = 100,
 
 	-- Timer to use for mobile respawn
-	respawnTimer = 240,
+	respawnTimer = 60,
 
 	-- Force Despawn in minutes (used on mobiles still in combat during spawner removal)
 	forceDespawn = 3,
