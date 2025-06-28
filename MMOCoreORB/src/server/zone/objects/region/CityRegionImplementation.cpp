@@ -232,6 +232,8 @@ void CityRegionImplementation::notifyEnter(SceneObject* object) {
 		}
 		else {
 			UnicodeString citySpec = StringIdManager::instance()->getStringId(citySpecialization.hashCode());
+
+			// @TODO: fix this, it should not have to be hardcoded. these values are already in the .stf files in the tre!!
 			String specName = "";
 			if(citySpec == "Improved Job Market")
 				specName = "Expedition Frontier";
