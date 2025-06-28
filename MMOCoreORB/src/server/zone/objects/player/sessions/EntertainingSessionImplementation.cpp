@@ -484,8 +484,9 @@ void EntertainingSessionImplementation::doPerformEffect(int effectId, int effect
 
 	entertainer->inflictDamage(entertainer, CreatureAttribute::ACTION, effectCost, true);
 
-	uint64 effectDuration = (uint64)(effect->getEffectDuration() * 1000);
-	entertainer->addCooldown("performing_entertainer_effect", effectDuration);
+	// ppswg allow entertainer tumbling
+	// uint64 effectDuration = (uint64)(effect->getEffectDuration() * 1000);
+	// entertainer->addCooldown("performing_entertainer_effect", effectDuration);
 }
 
 void EntertainingSessionImplementation::startPlayingMusic(int perfIndex, Instrument* instrument) {
