@@ -434,10 +434,11 @@ void EntertainingSessionImplementation::doPerformEffect(int effectId, int effect
 
 	PerformanceManager* performanceManager = SkillManager::instance()->getPerformanceManager();
 
-	if (!entertainer->checkCooldownRecovery("performing_entertainer_effect")) {
-		performanceManager->performanceMessageToSelf(entertainer, nullptr, "performance", "effect_wait_self"); // You must wait before you can perform another special effect.
-		return;
-	}
+	// ppswg allow entertainer tumbling
+	// if (!entertainer->checkCooldownRecovery("performing_entertainer_effect")) {
+	// 	performanceManager->performanceMessageToSelf(entertainer, nullptr, "performance", "effect_wait_self"); // You must wait before you can perform another special effect.
+	// 	return;
+	// }
 
 	PerformEffect* effect = performanceManager->getPerformEffect(effectId, effectLevel);
 
@@ -698,7 +699,8 @@ void EntertainingSessionImplementation::addEntertainerBuffDuration(CreatureObjec
 	buffDuration += duration;
 
 	if (buffDuration > (120.0f + (10.0f / 60.0f)) ) // 2 hrs 10 seconds
-		buffDuration = (120.0f + (10.0f / 60.0f)); // 2hrs 10 seconds
+		// ppswg 3hr 10sec buff duration
+		buffDuration = (180.0f + (10.0f / 60.0f)); // 3hrs 10 seconds
 
 	setEntertainerBuffDuration(creature, performanceType, buffDuration);
 }
@@ -891,39 +893,65 @@ void EntertainingSessionImplementation::activateEntertainerBuff(CreatureObject* 
 			return;
 
 		ManagedReference<PerformanceBuff*> oldBuff = nullptr;
-		switch (performanceType) {
-		case PerformanceType::MUSIC:
-		{
-			uint32 focusBuffCRC = STRING_HASHCODE("performance_enhance_music_focus");
-			uint32 willBuffCRC = STRING_HASHCODE("performance_enhance_music_willpower");
-			oldBuff = cast<PerformanceBuff*>(creature->getBuff(focusBuffCRC));
-			if (oldBuff != nullptr && oldBuff->getBuffStrength() > buffStrength)
-				return;
-			ManagedReference<PerformanceBuff*> focusBuff = new PerformanceBuff(creature, focusBuffCRC, buffStrength, buffDuration * 60, PerformanceBuffType::MUSIC_FOCUS);
-			ManagedReference<PerformanceBuff*> willBuff = new PerformanceBuff(creature, willBuffCRC, buffStrength, buffDuration * 60, PerformanceBuffType::MUSIC_WILLPOWER);
 
-			Locker locker(focusBuff);
-			creature->addBuff(focusBuff);
-			locker.release();
+		// ppswg dancer and musician can buff all stats from Infinity
+		oldBuff = cast<PerformanceBuff*>(creature->getBuff(BuffCRC::PERFORMANCE_ENHANCE_DANCE_MIND));
 
-			Locker locker2(willBuff);
-			creature->addBuff(willBuff);
-			break;
-		}
-		case PerformanceType::DANCE:
-		{
-			uint32 mindBuffCRC = STRING_HASHCODE("performance_enhance_dance_mind");
-			oldBuff = cast<PerformanceBuff*>(creature->getBuff(mindBuffCRC));
-			if (oldBuff != nullptr && oldBuff->getBuffStrength() > buffStrength)
-				return;
-			ManagedReference<PerformanceBuff*> mindBuff = new PerformanceBuff(creature, mindBuffCRC, buffStrength, buffDuration * 60, PerformanceBuffType::DANCE_MIND);
+		if (oldBuff != nullptr && oldBuff->getBuffStrength() > buffStrength)
+			return;
 
-			Locker locker(mindBuff);
-			creature->addBuff(mindBuff);
-			break;
-		}
-		}
+		//Infinity:  Don't overwrite older buffs if the duration is longer
+		if (oldBuff != nullptr && (oldBuff->getBuffDuration() > buffDuration * 60) && (oldBuff->getBuffStrength() <= buffStrength))
+			return;
 
+		ManagedReference<PerformanceBuff*> mindBuff = new PerformanceBuff(creature, BuffCRC::PERFORMANCE_ENHANCE_DANCE_MIND, buffStrength, buffDuration * 60, PerformanceBuffType::DANCE_MIND);
+		ManagedReference<PerformanceBuff*> focusBuff = new PerformanceBuff(creature, BuffCRC::PERFORMANCE_ENHANCE_MUSIC_FOCUS, buffStrength, buffDuration * 60, PerformanceBuffType::MUSIC_FOCUS);
+		ManagedReference<PerformanceBuff*> willBuff = new PerformanceBuff(creature, BuffCRC::PERFORMANCE_ENHANCE_MUSIC_WILLPOWER, buffStrength, buffDuration * 60, PerformanceBuffType::MUSIC_WILLPOWER);
+
+		Locker mlocker(mindBuff);
+		creature->addBuff(mindBuff);
+		mlocker.release();
+
+		Locker flocker(focusBuff);
+		creature->addBuff(focusBuff);
+		flocker.release();
+
+		Locker wlocker(willBuff);
+		creature->addBuff(willBuff);
+		wlocker.release();
+
+		// switch (performanceType) {
+		// case PerformanceType::MUSIC:
+		// {
+		// 	uint32 focusBuffCRC = STRING_HASHCODE("performance_enhance_music_focus");
+		// 	uint32 willBuffCRC = STRING_HASHCODE("performance_enhance_music_willpower");
+		// 	oldBuff = cast<PerformanceBuff*>(creature->getBuff(focusBuffCRC));
+		// 	if (oldBuff != nullptr && oldBuff->getBuffStrength() > buffStrength)
+		// 		return;
+		// 	ManagedReference<PerformanceBuff*> focusBuff = new PerformanceBuff(creature, focusBuffCRC, buffStrength, buffDuration * 60, PerformanceBuffType::MUSIC_FOCUS);
+		// 	ManagedReference<PerformanceBuff*> willBuff = new PerformanceBuff(creature, willBuffCRC, buffStrength, buffDuration * 60, PerformanceBuffType::MUSIC_WILLPOWER);
+
+		// 	Locker locker(focusBuff);
+		// 	creature->addBuff(focusBuff);
+		// 	locker.release();
+
+		// 	Locker locker2(willBuff);
+		// 	creature->addBuff(willBuff);
+		// 	break;
+		// }
+		// case PerformanceType::DANCE:
+		// {
+		// 	uint32 mindBuffCRC = STRING_HASHCODE("performance_enhance_dance_mind");
+		// 	oldBuff = cast<PerformanceBuff*>(creature->getBuff(mindBuffCRC));
+		// 	if (oldBuff != nullptr && oldBuff->getBuffStrength() > buffStrength)
+		// 		return;
+		// 	ManagedReference<PerformanceBuff*> mindBuff = new PerformanceBuff(creature, mindBuffCRC, buffStrength, buffDuration * 60, PerformanceBuffType::DANCE_MIND);
+
+		// 	Locker locker(mindBuff);
+		// 	creature->addBuff(mindBuff);
+		// 	break;
+		// }
+		// }
 
 	} catch(Exception& e) {
 
