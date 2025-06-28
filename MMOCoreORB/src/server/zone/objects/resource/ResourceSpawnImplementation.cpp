@@ -239,8 +239,9 @@ Reference<ResourceContainer*> ResourceSpawnImplementation::createResource(int un
 
    	newResource->setSpawnObject(_this.getReferenceUnsafeStaticCast());
 
-   	if (units != 0)
+   	if (units != 0) {
    		newResource->setQuantity(units);
+		}
 
    	// newResource->setCustomObjectName(getFamilyName(), false);
 
