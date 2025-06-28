@@ -196,7 +196,8 @@ void VehicleControlDeviceImplementation::storeObject(CreatureObject* player, boo
 	/*if (!controlledObject->isInQuadTree())
 		return;*/
 
-	if (!force && (player->isInCombat() || player->isDead()))
+	// if (!force && (player->isInCombat() || player->isDead()))
+	if (!force && (player->isDead())) // pswg allow store vehicles in combat
 		return;
 
 	if (player->isRidingMount() && player->getParent() == controlledObject) {

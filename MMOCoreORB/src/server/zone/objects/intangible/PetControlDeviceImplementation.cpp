@@ -556,7 +556,8 @@ void PetControlDeviceImplementation::storeObject(CreatureObject* player, bool fo
 
 	if (!force) {
 		// Fail if pet or player are in combat or if the pet is dead, unless forced
-		if (pet->isInCombat() || player->isInCombat() || player->isDead())
+		// if (pet->isInCombat() || player->isInCombat() || player->isDead())
+		if (player->isDead()) // pswg allow storing droids in combat
 			return;
 
 		// Check cooldown for call or store
