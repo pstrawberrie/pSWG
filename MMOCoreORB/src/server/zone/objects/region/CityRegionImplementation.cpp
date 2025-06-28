@@ -233,11 +233,11 @@ void CityRegionImplementation::notifyEnter(SceneObject* object) {
 		else {
 			UnicodeString citySpec = StringIdManager::instance()->getStringId(citySpecialization.hashCode());
 			String specName = "";
-			if(citySpec === "Improved Job Market")
+			if(citySpec == "Improved Job Market")
 				specName = "Expedition Frontier";
-			if(citySpec === "Research Center")
+			if(citySpec == "Research Center")
 				specName = "Logistics Hub";
-			if(citySpec === "Stronghold")
+			if(citySpec == "Stronghold")
 				specName = "Dynamic Garrison";
 			params.setTO(strRank + ", " + specName);
 		}
