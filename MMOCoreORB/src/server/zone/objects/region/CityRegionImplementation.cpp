@@ -232,7 +232,16 @@ void CityRegionImplementation::notifyEnter(SceneObject* object) {
 		}
 		else {
 			UnicodeString citySpec = StringIdManager::instance()->getStringId(citySpecialization.hashCode());
-			params.setTO(strRank + ", " + citySpec);
+
+			// @TODO: fix this, it should not have to be hardcoded. these values are already in the .stf files in the tre!!
+			String specName = "";
+			if(citySpec == "Improved Job Market")
+				specName = "Expedition Frontier";
+			if(citySpec == "Research Center")
+				specName = "Logistics Hub";
+			if(citySpec == "Stronghold")
+				specName = "Dynamic Garrison";
+			params.setTO(strRank + ", " + specName);
 		}
 
 		creature->sendSystemMessage(params);
