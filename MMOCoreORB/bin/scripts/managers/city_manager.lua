@@ -186,45 +186,45 @@ CityTaxes = {
 	====================
 --]]
 CitySpecializations = {
-	-- {--Sample Rich
-	-- 	name = "@city/city:city_spec_sample_rich",
-	-- 	cost = 70000,
-	-- 	skillMods = {
-	-- 		{"private_spec_samplesize", 25},
-	-- 		{"private_spec_samplerate", 10},
-	-- 		{"private_spec_cloning", 20}
-	-- 	}
-	-- },
-	-- {--Manufacturing Center
-	-- 	name = "@city/city:city_spec_industry",
-	-- 	cost = 50000,
-	-- 	skillMods = {
-	-- 		{"private_spec_assembly", 10},
-	-- 		{"private_spec_experimentation", 15},
-	-- 		{"private_spec_samplesize", 25},
-	-- 		{"private_spec_samplerate", 10},
-	-- 		{"private_spec_cloning", 20}
-	-- 	}
-	-- },
-	-- {--Medical Center
-	-- 	name = "@city/city:city_spec_doctor",
-	-- 	cost = 80000,
-	-- 	skillMods = {
-	-- 		{"private_medical_rating", 10},
-	-- 		{"private_spec_samplesize", 25},
-	-- 		{"private_spec_samplerate", 10},
-	-- 		{"private_spec_cloning", 20}
-	-- 	}
-	-- },
-	-- { --Clone Lab
-	-- 	name = "@city/city:city_spec_cloning",
-	-- 	cost = 80000,
-	-- 	skillMods = {
-	-- 		{"private_spec_samplesize", 25},
-	-- 		{"private_spec_samplerate", 10},
-	-- 		{"private_spec_cloning", 20}
-	-- 	}
-	-- },
+	{--Sample Rich -- KEEPING DEFAULT
+		name = "@city/city:city_spec_sample_rich",
+		cost = 70000,
+		skillMods = {
+			{"private_spec_samplesize", 25},
+			{"private_spec_samplerate", 10},
+			{"private_spec_cloning", 20}
+		}
+	},
+	{--Manufacturing Center -- KEEPING DEFAULT
+		name = "@city/city:city_spec_industry",
+		cost = 50000,
+		skillMods = {
+			{"private_spec_assembly", 10},
+			{"private_spec_experimentation", 15},
+			{"private_spec_samplesize", 25},
+			{"private_spec_samplerate", 10},
+			{"private_spec_cloning", 20}
+		}
+	},
+	{--Medical Center -- KEEPING DEFAULT
+		name = "@city/city:city_spec_doctor",
+		cost = 80000,
+		skillMods = {
+			{"private_medical_rating", 10},
+			{"private_spec_samplesize", 25},
+			{"private_spec_samplerate", 10},
+			{"private_spec_cloning", 20}
+		}
+	},
+	{ --Clone Lab -- KEEPING DEFAULT
+		name = "@city/city:city_spec_cloning",
+		cost = 80000,
+		skillMods = {
+			{"private_spec_samplesize", 25},
+			{"private_spec_samplerate", 10},
+			{"private_spec_cloning", 20}
+		}
+	},
 	{--Research Center
 		name = "@city/city:city_spec_research",-- ppswg renamed spec to "Logistics Hub" in tre file
 		cost = 50000,-- ppswg changed to 50000, added specs
@@ -250,17 +250,17 @@ CitySpecializations = {
 			{"private_spec_cloning", 50}
 		}
 	},
-	-- {--Entertainment District
-	-- 	name = "@city/city:city_spec_entertainer",
-	-- 	cost = 50000,
-	-- 	skillMods = {
-	-- 		{"private_medical_rating", 10},
-	-- 		{"private_spec_entertainer", 10},
-	-- 		{"private_spec_samplesize", 25},
-	-- 		{"private_spec_samplerate", 10},
-	-- 		{"private_spec_cloning", 20}
-	-- 	}
-	-- },
+	{--Entertainment District -- KEEPING DEFAULT
+		name = "@city/city:city_spec_entertainer",
+		cost = 50000,
+		skillMods = {
+			{"private_medical_rating", 10},
+			{"private_spec_entertainer", 10},
+			{"private_spec_samplesize", 25},
+			{"private_spec_samplerate", 10},
+			{"private_spec_cloning", 20}
+		}
+	},
 	{--Stronghold
 		name = "@city/city:city_spec_stronghold", -- ppswg renamed spec to "Dynamic Garrison" in tre file
 		cost = 50000,-- ppswg changed to 50000, added specs
