@@ -16,6 +16,7 @@ TatooineCitySpawners = InterestAreaSpawner:new {
 	-- {x, z, y, direction, activeMin, activeMax, inactiveMin, inactiveMax, {{"spawnsTable1", numToSpawn}, {"spawnsTable2", numToSpawn}},
 	spawnerData = {
 		-- Mos Eisley
+		{3575, 5.1, -4667.7, 0, 20, 60, 10, 90, {{"worrt1", 30}}},
 		{3260.2, 5.1, -5040.7, 0, 20, 60, 10, 90, {{"worrt1", 10}, {"worrt2", 10}, {"rill1", 10}, {"rockmite1", 10}, {"womp_rat1", 10}, {"womp_rat2", 10}, {"mound_mite1", 10}, {"dwarf_eopie1", 10}, {"mynock1", 10}}},
 		{3430.0, 5.0, -5130.2, 0, 20, 60, 10, 90, {{"worrt1", 10}, {"worrt2", 10}, {"rill1", 10}, {"rockmite1", 10}, {"womp_rat1", 10}, {"womp_rat2", 10}, {"mound_mite1", 10}, {"dwarf_eopie1", 10}, {"mynock1", 10}}},
 		{3593.6, 5.2, -4988.7, 0, 20, 60, 10, 90, {{"worrt1", 10}, {"worrt2", 10}, {"rill1", 10}, {"rockmite1", 10}, {"womp_rat1", 10}, {"womp_rat2", 10}, {"mound_mite1", 10}, {"dwarf_eopie1", 10}, {"mynock1", 10}}},
