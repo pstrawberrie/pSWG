@@ -13,6 +13,7 @@
 #include "server/zone/objects/tangible/threat/ThreatMap.h"
 #include "server/zone/Zone.h"
 #include "server/zone/managers/creature/CreatureManager.h"
+#include "server/zone/managers/planet/PlanetManager.h"
 #include "LairAggroTask.h"
 #include "server/zone/objects/creature/ai/CreatureTemplate.h"
 #include "server/zone/managers/creature/CreatureTemplateManager.h"
@@ -20,7 +21,6 @@
 #include "server/zone/managers/creature/LairRepopulateTask.h"
 #include "server/zone/managers/creature/SpawnLairMobileTask.h"
 #include "server/chat/ChatManager.h"
-#include "server/zone/managers/combat/CombatManager.h"
 
 //#define DEBUG_WILD_LAIRS
 // #define DEBUG_LAIR_HEALING
@@ -222,6 +222,16 @@ void LairObserverImplementation::notifyDestruction(TangibleObject* lair, Tangibl
 	if (lair->getZone() == nullptr) {
 		spawnedCreatures.removeAll();
 		return;
+	}
+
+	// ppswg add sr2 fix for instant lair spawns after lair destroy
+	auto zone = lair->getZone();
+	if (zone != nullptr) {
+		auto planetManager = zone->getPlanetManager();
+		if (planetManager != nullptr) {
+			info(true) << "LairObserver: Registering destroyed lair location (" << lair->getPositionX() << ", " << lair->getPositionY() << ") for no-spawn zone";
+			planetManager->registerDestroyedLairLocation(lair->getPositionX(), lair->getPositionY());
+		}Add commentMore actions
 	}
 
 	PlayClientEffectObjectMessage* explode = new PlayClientEffectObjectMessage(lair, "clienteffect/lair_damage_heavy.cef", "");
