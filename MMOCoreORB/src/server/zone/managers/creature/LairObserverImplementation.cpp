@@ -231,7 +231,7 @@ void LairObserverImplementation::notifyDestruction(TangibleObject* lair, Tangibl
 		if (planetManager != nullptr) {
 			info(true) << "LairObserver: Registering destroyed lair location (" << lair->getPositionX() << ", " << lair->getPositionY() << ") for no-spawn zone";
 			planetManager->registerDestroyedLairLocation(lair->getPositionX(), lair->getPositionY());
-		}Add commentMore actions
+		}
 	}
 
 	PlayClientEffectObjectMessage* explode = new PlayClientEffectObjectMessage(lair, "clienteffect/lair_damage_heavy.cef", "");
