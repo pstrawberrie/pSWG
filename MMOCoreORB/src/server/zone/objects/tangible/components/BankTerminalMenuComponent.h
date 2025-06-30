@@ -23,7 +23,7 @@ protected:
 
 	// @TODO Move this to a proper configuration manager so no rebuild is necessary
 	// static const bool GLOBALSAFETYDEPOSIT = false;
-	static const bool GLOBALSAFETYDEPOSIT = true; // ppswg enable global bank
+	static const bool GLOBALSAFETYDEPOSIT = true; // pswg enable global bank
 
 public:
 

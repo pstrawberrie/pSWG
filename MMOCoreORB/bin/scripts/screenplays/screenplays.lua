@@ -730,7 +730,7 @@ includeFile("tests/ai_test.lua")
 -- Server Event Automation
 includeFile("events/ServerEventAutomation.lua")
 
--- ppSWG
+-- pSWG
 includeFile("custom_content/tools/mission_direction_choice.lua")
 includeFile("custom_content/tools/mission_level_choice.lua")
 

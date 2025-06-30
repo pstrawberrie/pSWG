@@ -1307,7 +1307,7 @@ void MissionManagerImplementation::randomizeGenericBountyMission(CreatureObject*
 			creatorName = nm->makeCreatureName();
 		}
 
-		// ppswg bh mission titles
+		// pswg bh mission titles
 		mission->setCreatorName(creatorName);
 		mission->setMissionTitle("Difficulty " + String::valueOf(missionDiff), " Disappear " + npcTargetName);
 		// mission->setMissionTitle(stfFile + diffString, "m" + String::valueOf(randTexts) + "t");

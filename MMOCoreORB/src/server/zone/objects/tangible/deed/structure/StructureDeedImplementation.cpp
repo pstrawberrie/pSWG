@@ -79,6 +79,6 @@ void StructureDeedImplementation::fillAttributeList(AttributeListMessage* alm, C
 }
 
 void StructureDeedImplementation::updateCraftingValues(CraftingValues* values, bool firstUpdate){
-	setExtractionRate(values->getCurrentValue("extractrate") * 5.0); // ppswg 5x harvester rate
+	setExtractionRate(values->getCurrentValue("extractrate") * 5.0); // pswg 5x harvester rate
 	setHopperSize(values->getCurrentValue("hoppersize"));
 }

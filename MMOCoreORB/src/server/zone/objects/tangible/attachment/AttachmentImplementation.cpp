@@ -89,7 +89,7 @@ void AttachmentImplementation::updateCraftingValues(CraftingValues* values, bool
 		skillModifiers.put(modName, ((mod <= 0) ? 1 : mod));
 	}
 
-	// ppswg attachment names
+	// pswg attachment names
 	// thanks to sr2 example: https://github.com/swgsremu/sentinelsrepublic-server/blob/0b3db1fa8df5bf782116924becad5562da713605/MMOCoreORB/src/server/zone/objects/tangible/attachment/AttachmentImplementation.cpp#L114
 	if (skillModifiers.size() > 0) {
     auto entry = skillModifiers.elementAt(0);

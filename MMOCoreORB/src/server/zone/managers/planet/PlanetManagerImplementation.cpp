@@ -1294,7 +1294,7 @@ bool PlanetManagerImplementation::isSpawningPermittedAt(float x, float y, float 
 	if (!zone->isWithinBoundaries(targetPos))
 		return false;
 
-	// ppswg add sr2 fix for instant lair spawns after lair destroy
+	// pswg add sr2 fix for instant lair spawns after lair destroy
 	// Check if in destroyed lair no-spawn zone
 	if (isInDestroyedLairNoSpawnZone(x, y)) {
 		return false;
@@ -1657,7 +1657,7 @@ Vector3 PlanetManagerImplementation::getJtlLaunchLocations() {
 	return jtlLaunchLocation;
 }
 
-// ppswg add sr2 fix for instant lair spawns after lair destroy
+// pswg add sr2 fix for instant lair spawns after lair destroy
 void PlanetManagerImplementation::registerDestroyedLairLocation(float x, float y) {
 	// Round to nearest 10 units to create location key for nearby tracking
 	int roundedX = static_cast<int>(round(x / 10.0f) * 10);

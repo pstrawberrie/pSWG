@@ -224,7 +224,7 @@ void LairObserverImplementation::notifyDestruction(TangibleObject* lair, Tangibl
 		return;
 	}
 
-	// ppswg add sr2 fix for instant lair spawns after lair destroy
+	// pswg add sr2 fix for instant lair spawns after lair destroy
 	auto zone = lair->getZone();
 	if (zone != nullptr) {
 		auto planetManager = zone->getPlanetManager();

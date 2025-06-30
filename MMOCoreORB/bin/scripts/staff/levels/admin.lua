@@ -2,7 +2,7 @@ admin = {
 	level = 15,
 	name = "admin",
 	flag = 0,
-	tag = "ppSWG",
+	tag = "pSWG",
 	skills = {
 		"admin_base",
 		"admin_debug_01",

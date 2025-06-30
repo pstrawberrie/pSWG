@@ -99,7 +99,7 @@ class PlanetManager extends ManagedService implements Logger {
 	@dereferenced
 	protected transient SynchronizedSortedVector<unsigned long> spawnedEventStructures;
 
-	// ppswg add sr2 fix for instant lair spawns after lair destroy
+	// pswg add sr2 fix for instant lair spawns after lair destroy
 	@dereferenced
 	protected transient VectorMap<string, long> destroyedLairLocations;
 
@@ -241,10 +241,10 @@ class PlanetManager extends ManagedService implements Logger {
 
 	private native boolean noInterferingObjects(CreatureObject creature, @dereferenced final Vector3 position);
 
-	// ppswg add sr2 fix for instant lair spawns after lair destroy
+	// pswg add sr2 fix for instant lair spawns after lair destroy
 	public native void registerDestroyedLairLocation(float x, float y);
 
-	// ppswg add sr2 fix for instant lair spawns after lair destroy
+	// pswg add sr2 fix for instant lair spawns after lair destroy
 	private native boolean isInDestroyedLairNoSpawnZone(float x, float y, float radius = 128.0);
 
 	public native boolean isSpawningPermittedAt(float x, float y, float margin, boolean isWorldSpawnArea = false);

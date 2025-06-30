@@ -245,7 +245,7 @@ Reference<ResourceContainer*> ResourceSpawnImplementation::createResource(int un
 
    	// newResource->setCustomObjectName(getFamilyName(), false);
 
-		// ppswg resource names (from Infinity)
+		// pswg resource names (from Infinity)
 		String resourceName = getFinalClass() + " (" + getName() + ")";
 		newResource->setCustomObjectName(resourceName, true);
 

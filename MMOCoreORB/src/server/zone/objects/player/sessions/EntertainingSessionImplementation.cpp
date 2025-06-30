@@ -434,7 +434,7 @@ void EntertainingSessionImplementation::doPerformEffect(int effectId, int effect
 
 	PerformanceManager* performanceManager = SkillManager::instance()->getPerformanceManager();
 
-	// ppswg allow entertainer tumbling
+	// pswg allow entertainer tumbling
 	// if (!entertainer->checkCooldownRecovery("performing_entertainer_effect")) {
 	// 	performanceManager->performanceMessageToSelf(entertainer, nullptr, "performance", "effect_wait_self"); // You must wait before you can perform another special effect.
 	// 	return;
@@ -485,7 +485,7 @@ void EntertainingSessionImplementation::doPerformEffect(int effectId, int effect
 
 	entertainer->inflictDamage(entertainer, CreatureAttribute::ACTION, effectCost, true);
 
-	// ppswg allow entertainer tumbling
+	// pswg allow entertainer tumbling
 	// uint64 effectDuration = (uint64)(effect->getEffectDuration() * 1000);
 	// entertainer->addCooldown("performing_entertainer_effect", effectDuration);
 }
@@ -699,7 +699,7 @@ void EntertainingSessionImplementation::addEntertainerBuffDuration(CreatureObjec
 	buffDuration += duration;
 
 	if (buffDuration > (120.0f + (10.0f / 60.0f)) ) // 2 hrs 10 seconds
-		// ppswg 3hr 10sec buff duration
+		// pswg 3hr 10sec buff duration
 		buffDuration = (180.0f + (10.0f / 60.0f)); // 3hrs 10 seconds
 
 	setEntertainerBuffDuration(creature, performanceType, buffDuration);
@@ -894,7 +894,7 @@ void EntertainingSessionImplementation::activateEntertainerBuff(CreatureObject* 
 
 		ManagedReference<PerformanceBuff*> oldBuff = nullptr;
 
-		// ppswg dancer and musician can buff all stats from Infinity
+		// pswg dancer and musician can buff all stats from Infinity
 		oldBuff = cast<PerformanceBuff*>(creature->getBuff(BuffCRC::PERFORMANCE_ENHANCE_DANCE_MIND));
 
 		if (oldBuff != nullptr && oldBuff->getBuffStrength() > buffStrength)
