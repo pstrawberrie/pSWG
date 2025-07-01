@@ -40,7 +40,7 @@ bool GroupManager::playerIsInvitingOwnPet(CreatureObject* inviter, CreatureObjec
 
 // pswg add SR2 groups fix
 int GroupManager::srMaxGroupSize(CreatureObject* inviter, CreatureObject* target) {
-	bool inviterIsStaff = false;Add commentMore actions
+	bool inviterIsStaff = false;
 	if (inviter != nullptr) {
 		Reference<PlayerObject*> ghostInviter = inviter->getSlottedObject("ghost").castTo<PlayerObject*>();
 		inviterIsStaff = ghostInviter != nullptr && ghostInviter->isStaff();
