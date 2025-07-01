@@ -36,23 +36,23 @@ GroupManager::GroupManager() {
 
 bool GroupManager::playerIsInvitingOwnPet(CreatureObject* inviter, CreatureObject* target) {
 	return inviter != nullptr && target != nullptr && target->isPet() && target->getCreatureLinkID() != 0 && target->getCreatureLinkID() == inviter->getObjectID();
+}
 
-	// pswg add SR2 groups fix
-	int GroupManager::srMaxGroupSize(CreatureObject* inviter, CreatureObject* target) {
-		bool inviterIsStaff = false;Add commentMore actions
-		if (inviter != nullptr) {
-			Reference<PlayerObject*> ghostInviter = inviter->getSlottedObject("ghost").castTo<PlayerObject*>();
-			inviterIsStaff = ghostInviter != nullptr && ghostInviter->isStaff();
-		}
-
-		bool targetIsStaff = false;
-		if (target != nullptr) {
-			Reference<PlayerObject*> ghostTarget = target->getSlottedObject("ghost").castTo<PlayerObject*>();
-			targetIsStaff = ghostTarget != nullptr && ghostTarget->isStaff();
-		}
-
-		return (inviterIsStaff || targetIsStaff) ? staffGroupMax : playerGroupMax;
+// pswg add SR2 groups fix
+int GroupManager::srMaxGroupSize(CreatureObject* inviter, CreatureObject* target) {
+	bool inviterIsStaff = false;Add commentMore actions
+	if (inviter != nullptr) {
+		Reference<PlayerObject*> ghostInviter = inviter->getSlottedObject("ghost").castTo<PlayerObject*>();
+		inviterIsStaff = ghostInviter != nullptr && ghostInviter->isStaff();
 	}
+
+	bool targetIsStaff = false;
+	if (target != nullptr) {
+		Reference<PlayerObject*> ghostTarget = target->getSlottedObject("ghost").castTo<PlayerObject*>();
+		targetIsStaff = ghostTarget != nullptr && ghostTarget->isStaff();
+	}
+
+	return (inviterIsStaff || targetIsStaff) ? staffGroupMax : playerGroupMax;
 }
 
 void GroupManager::inviteToGroup(CreatureObject* inviter, CreatureObject* target) {
