@@ -36,6 +36,23 @@ GroupManager::GroupManager() {
 
 bool GroupManager::playerIsInvitingOwnPet(CreatureObject* inviter, CreatureObject* target) {
 	return inviter != nullptr && target != nullptr && target->isPet() && target->getCreatureLinkID() != 0 && target->getCreatureLinkID() == inviter->getObjectID();
+
+	// pswg add SR2 groups fix
+	int GroupManager::srMaxGroupSize(CreatureObject* inviter, CreatureObject* target) {
+		bool inviterIsStaff = false;Add commentMore actions
+		if (inviter != nullptr) {
+			Reference<PlayerObject*> ghostInviter = inviter->getSlottedObject("ghost").castTo<PlayerObject*>();
+			inviterIsStaff = ghostInviter != nullptr && ghostInviter->isStaff();
+		}
+
+		bool targetIsStaff = false;
+		if (target != nullptr) {
+			Reference<PlayerObject*> ghostTarget = target->getSlottedObject("ghost").castTo<PlayerObject*>();
+			targetIsStaff = ghostTarget != nullptr && ghostTarget->isStaff();
+		}
+
+		return (inviterIsStaff || targetIsStaff) ? staffGroupMax : playerGroupMax;
+	}
 }
 
 void GroupManager::inviteToGroup(CreatureObject* inviter, CreatureObject* target) {
@@ -65,7 +82,7 @@ void GroupManager::inviteToGroup(CreatureObject* inviter, CreatureObject* target
 
 		// can't invite if the group is full
 		// if (group->getGroupSize() >= 20) {
-		if (group->getGroupSize() >= 50) {
+		if (group->getGroupSize() >= srMaxGroupSize(inviter, target)) { // pswg add SR2 group fix
 			inviter->sendSystemMessage("@group:full");
 			return;
 		}
@@ -209,7 +226,7 @@ void GroupManager::joinGroup(CreatureObject* creature) {
 	Locker clocker(creature, group);
 
 	// if (group->getGroupSize() >= 20) {
-	if (group->getGroupSize() >= 50) {
+	if (group->getGroupSize() >= srMaxGroupSize(leader, creature)) { // pswg add SR2 group fix
 		creature->updateGroupInviterID(0);
 
 		creature->sendSystemMessage("The group is full.");
