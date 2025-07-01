@@ -1486,6 +1486,7 @@ void GuildManagerImplementation::sponsorPlayer(CreatureObject* player, const Str
 	suiBox->setPromptText(text.toString());
 	suiBox->setUsingObject(player);
 	// suiBox->setForceCloseDistance(32); // pswg allow guild invites from anywhere
+	suiBox->setForceCloseDisabled(); // pswg allow guild invites from anywhere
 	suiBox->setCancelButton(true, "@no");
 	suiBox->setOkButton(true, "@yes");
 
