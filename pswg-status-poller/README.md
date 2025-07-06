@@ -10,7 +10,7 @@ It is designed to run as a persistent `systemd` service on **Debian 12**.
 
 - Python 3 (already included on Debian 12)
 - A running SWGEmu ZoneServer with status server enabled
-- Your user (`pstraw` or similar) must have access to run systemd units
+- Your user (`swg`) must have access to run systemd units
 
 ---
 
@@ -18,12 +18,14 @@ It is designed to run as a persistent `systemd` service on **Debian 12**.
 
 ### 1. Copy the Script
 
-Save `pswg-status-poller.py` to a permanent location:
+Save `pswg-status-poller.py` to a permanent location and create the `pswg-status.json` JSON file:
 
 ```bash
 sudo mkdir -p /opt/pswg-status-poller
 sudo cp pswg-status-poller.py /opt/pswg-status-poller/
 sudo chmod +x /opt/pswg-status-poller/pswg-status-poller.py
+sudo touch /opt/pswg-status-poller/pswg-status.json
+sudo chown swg:swg /opt/pswg-status-poller/pswg-status.json
 ```
 
 ### 2. Create the systemd Service
