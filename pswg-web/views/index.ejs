@@ -171,19 +171,17 @@
 
   <script nonce="<%= nonce %>">
     document.addEventListener('DOMContentLoaded', () => {
+      const openEl = document.querySelector('a[href="#register"]');
       const registerWrapper = document.querySelector('.register-form');
       const registerForm = document.getElementById('register');
       const canRegister = registerForm.getAttribute('disabled');
 
-      if(!canRegister) return;
-
-      const openEl = document.querySelector('a[href="#register"]');
-      if(!openEl) return;
       openEl.addEventListener('click', () => {
         registerWrapper.classList.add('active');
       });
 
       document.addEventListener('click', (e) => {
+        if(!openEl) return;
         if(e.target !== openEl && !e.target.closest('.register-form')) registerWrapper.classList.remove('active')
       });
 
@@ -207,6 +205,10 @@
 
       registerForm.addEventListener('submit', async (e) => {
         e.preventDefault();
+        if(!canRegister) {
+          error(false, 'Registration is currently disabled');
+          return;
+        }
 
         const formData = new FormData(registerForm);
         const formJSON = Object.fromEntries(formData);
