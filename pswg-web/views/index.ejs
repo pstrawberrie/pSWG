@@ -176,7 +176,7 @@
       const registerForm = document.getElementById('register');
       const successEl = registerForm.querySelector('.success');
       const errorEl = registerForm.querySelector('.error');
-      const canRegister = registerForm.getAttribute('disabled');
+      const canRegister = registerForm.getAttribute('disabled') && registerForm.getAttribute('disabled') === 'true';
 
       if(openEl) {
         openEl.addEventListener('click', () => {
