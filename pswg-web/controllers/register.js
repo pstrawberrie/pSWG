@@ -31,10 +31,12 @@ export const postRegister = async (req, res) => {
     const { username, password } = req.body;
 
     if (!canRegister) {
+        console.error('/register POST: registration is currently disabled');
         return res.status(403).json({ error: 'Registration is currently disabled' });
     }
 
     if (!username || !password || username.length < 3 || password.length < 6) {
+        console.error(`/register POST: invalid username or password - username: ${username} / password: ${password}`);
         return res.status(400).json({ error: 'Invalid username or password' });
     }
 
@@ -52,9 +54,11 @@ export const postRegister = async (req, res) => {
         const [result] = await connection.execute(insertQuery, [username, hash, stationId, salt]);
         await connection.end();
 
+        console.log(`/register POST: sucessfully registered account "${username}" with password hash "${hash}"`);
         res.status(201).json({ success: true, account_id: result.insertId });
     } catch (err) {
         if (err.code === 'ER_DUP_ENTRY') {
+            console.error(`/register POST: username: "${username}" already exists`);
             return res.status(409).json({ error: 'Username already exists' });
         }
         console.error('Registration error:', err.message);
