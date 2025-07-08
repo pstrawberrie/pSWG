@@ -1,8 +1,5 @@
-import express from 'express';
 import mysql from 'mysql2/promise';
 import crypto from 'crypto';
-
-const router = express.Router();
 
 // DB config
 const dbConfig = {
@@ -11,7 +8,9 @@ const dbConfig = {
     password: process.env.SWGEMU_DB_PASS,
     database: process.env.SWGEMU_DB_NAME,
 };
+
 const DB_SECRET = process.env.SWGEMU_DB_SECRET;
+const canRegister = process.env.SWGEMU_ENABLE_REGISTRATION === 'true';
 
 // Utility functions
 function generateSalt(length = 32) {
@@ -25,9 +24,15 @@ function hashPassword(password, salt, dbSecret = '') {
         .digest('hex');
 }
 
-// POST /register
-router.post('/register', async (req, res) => {
+/**
+ * POST register
+ */
+export const postRegister = async (req, res) => {
     const { username, password } = req.body;
+
+    if (!canRegister) {
+        return res.status(403).json({ error: 'Registration is currently disabled' });
+    }
 
     if (!username || !password || username.length < 3 || password.length < 6) {
         return res.status(400).json({ error: 'Invalid username or password' });
@@ -55,6 +60,4 @@ router.post('/register', async (req, res) => {
         console.error('Registration error:', err.message);
         res.status(500).json({ error: 'Database error' });
     }
-});
-
-export default router;
+};

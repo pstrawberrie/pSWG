@@ -1,0 +1,163 @@
+<%- include('partials/top') %>
+
+<style>
+  main {
+    width: 100%;
+    height: 100%;
+    padding: 3rem 0;
+  }
+
+  .top {
+    position: relative;
+    text-align: center;
+    padding: 0 2rem;
+    transform: translateY(80%);
+  }
+
+  .top > div {
+    display: inline-block;
+  }
+
+  .soon {
+    text-align: right;
+    font-size: 1rem;
+  }
+
+  .register-form {
+    position: absolute;
+    top: 35%;
+    left: 50%;
+    width: 300px;
+    padding: 1.25rem;
+    border-radius: 2px;
+    background-color: rgba(0,0,0,.9);
+    border: 1px solid rgba(255,255,255,.1);
+    backdrop-filter: blur(4px);
+    transform: translate(-50%, -50%);
+    box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
+    z-index: 10;
+  }
+
+  .register-form span {
+    display: block;
+    margin-bottom: .69rem;
+    font-size: 1.2rem;
+  }
+
+  form {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+  }
+
+  form label {
+    font-family: var(--ff-roboto);
+    font-size: .85rem;
+  }
+
+  form input:not(input[type="submit"]) {
+    width: 100%;
+    background: rgba(255,255,255,.25);
+    padding: 2px 4px;
+    color: var(--c-white);
+  }
+
+  form input[type="submit"]:active {
+    box-shadow: inset 0 0 8px 3px var(--c-black);
+  }
+
+  form fieldset {
+    margin-bottom: .45rem;
+  }
+
+  form input[type="submit"] {
+    margin-top: 1rem;
+    width: auto;
+    margin: 1rem auto 0 0;
+  }
+
+  form .error {
+    font-size: .9rem;
+    font-weight: bold;
+    color: var(--c-red);
+  }
+</style>
+
+<body>
+  <main>
+    <div class="top">
+      <div>
+        <img src="/logo.png" alt="">
+        <div class="soon">Coming Soon...</div>
+      </div>
+    </div>
+  </main>
+
+  <div class="register-form">
+    <span>Register Game Account</span>
+
+    <form id="register" disabled="<%= !canRegister%>">
+      <fieldset>
+        <label for="username">Username</label>
+        <input type="text" name="username" id="username">
+      </fieldset>
+      <fieldset>
+        <label for="password">Password</label>
+        <input type="password" name="password" id="password" autocomplete="new-password">
+      </fieldset>
+      <fieldset>
+        <label for="passwordConfirm">Confirm Password</label>
+        <input type="password" name="passwordConfirm" id="passwordConfirm" autocomplete="new-password">
+      </fieldset>
+      <div class="error"></div>
+      <div class="loading"></div>
+      <input class="button" type="submit" value="Register">
+    </form>
+  </div>
+
+  <script nonce="<%= nonce %>">
+    document.addEventListener('DOMContentLoaded', () => {
+      const registerForm = document.getElementById('register');
+      const canRegister = registerForm.getAttribute('disabled');
+
+      if(!canRegister) return;
+
+      const errorEl = registerForm.querySelector('.error');
+      function error(clear, message) {
+        if(clear) {
+          errorEl.innerText = '';
+          errorEl.classList.add('hide');
+        } else {
+          errorEl.innerText = `Error: ${message}`;
+          errorEl.classList.remove('hide');
+        }
+      }
+
+      registerForm.addEventListener('submit', (e) => {
+        e.preventDefault();
+
+        const formData = new FormData(registerForm);
+        const formJSON = Object.fromEntries(formData);
+
+        const username = formJSON.username.toLowerCase().trim();
+        const password = formJSON.password.trim();
+        const passwordConfirm = formJSON.passwordConfirm.trim();
+
+        if(username.length < 3) {
+          error(false, 'Username must be at least 3 characters');
+        } else if(password.length < 8) {
+          error(false, 'Password must be at least 8 characters');
+        } else if(password !== passwordConfirm) {
+          error(false, 'Passwords do not match');
+        } else {
+          error(true)
+        }
+
+
+
+        console.log(formJSON);
+      });
+    });
+  </script>
+<%- include('partials/bottom') %>
