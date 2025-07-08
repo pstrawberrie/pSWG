@@ -174,23 +174,24 @@
       const openEl = document.querySelector('a[href="#register"]');
       const registerWrapper = document.querySelector('.register-form');
       const registerForm = document.getElementById('register');
-      const canRegister = registerForm.getAttribute('disabled');
-
-      openEl.addEventListener('click', () => {
-        registerWrapper.classList.add('active');
-      });
-
-      document.addEventListener('click', (e) => {
-        if(!openEl) return;
-        if(e.target !== openEl && !e.target.closest('.register-form')) registerWrapper.classList.remove('active')
-      });
-
-      document.addEventListener('keydown', (e) => {
-        if(e.key === 'Escape') registerWrapper.classList.remove('active')
-      });
-
       const successEl = registerForm.querySelector('.success');
       const errorEl = registerForm.querySelector('.error');
+      const canRegister = registerForm.getAttribute('disabled');
+
+      if(openEl) {
+        openEl.addEventListener('click', () => {
+          registerWrapper.classList.add('active');
+        });
+  
+        document.addEventListener('click', (e) => {
+          if(e.target !== openEl && !e.target.closest('.register-form')) registerWrapper.classList.remove('active')
+        });
+  
+        document.addEventListener('keydown', (e) => {
+          if(e.key === 'Escape') registerWrapper.classList.remove('active')
+        });
+      }
+
       function error(clear, message) {
         if(clear) {
           errorEl.innerText = '';
