@@ -147,7 +147,7 @@
   <div class="register-form">
     <span>Register Game Account</span>
 
-    <form id="register" disabled="<%= !canRegister%>">
+    <form id="register" data-can-register="<%= canRegister%>">
       <fieldset>
         <label for="username">Username</label>
         <input type="text" name="username" id="username">
@@ -176,7 +176,7 @@
       const registerForm = document.getElementById('register');
       const successEl = registerForm.querySelector('.success');
       const errorEl = registerForm.querySelector('.error');
-      const canRegister = registerForm.getAttribute('disabled') && registerForm.getAttribute('disabled') === 'true';
+      const canRegister = registerForm.getAttribute('data-can-register') === 'true';
 
       if(openEl) {
         openEl.addEventListener('click', () => {
@@ -229,7 +229,7 @@
             error(true);
             registerWrapper.classList.add('loading');
 
-            const response = await fetch('http://localhost:3000/register', {
+            const response = await fetch('/register', {
               method: 'POST',
               headers: { 'Content-Type': 'application/json' },
               body: JSON.stringify(formJSON),
