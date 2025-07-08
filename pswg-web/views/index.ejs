@@ -18,8 +18,13 @@
     display: inline-block;
   }
 
+  .top > div > div {
+    display: flex;
+    justify-content: space-between;
+  }
+
   .soon {
-    text-align: right;
+    margin-left: auto;
     font-size: 1rem;
   }
 
@@ -30,12 +35,23 @@
     width: 300px;
     padding: 1.25rem;
     border-radius: 2px;
-    background-color: rgba(0,0,0,.9);
+    background-color: rgba(0,0,0,.95);
     border: 1px solid rgba(255,255,255,.1);
     backdrop-filter: blur(4px);
     transform: translate(-50%, -50%);
     box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
     z-index: 10;
+
+    transition: .2s ease-in-out;
+    opacity: 0;
+    transform: translate(-50%, -45%);
+    pointer-events: none;
+  }
+
+  .register-form.active {
+    opacity: 1;
+    transform: translate(-50%, -50%);
+    pointer-events: all;
   }
 
   .register-form span {
@@ -58,9 +74,17 @@
 
   form input:not(input[type="submit"]) {
     width: 100%;
-    background: rgba(255,255,255,.25);
+    background: rgba(255,255,255,.169);
     padding: 2px 4px;
     color: var(--c-white);
+    border-radius: 2px;
+    border-bottom: 1px solid transparent;
+  }
+
+  form input:not(input[type="submit"]):focus-visible {
+    background-color: transparent;
+    border-bottom: 1px solid var(--c-white);
+    border-radius: 0;
   }
 
   form input[type="submit"]:active {
@@ -77,10 +101,31 @@
     margin: 1rem auto 0 0;
   }
 
-  form .error {
+  form .error,
+  form .success {
     font-size: .9rem;
     font-weight: bold;
     color: var(--c-red);
+  }
+
+  form .success {
+    color: var(--c-green);
+  }
+
+  .register-form .loading {
+    display: none;
+    justify-content: center;
+    margin: 1rem 0 .5rem;
+  }
+
+  .register-form.loading .loading {
+    display: flex;
+  }
+
+  .register-form.loading label,
+  .register-form.loading input {
+    opacity: .2;
+    pointer-events: none;
   }
 </style>
 
@@ -89,7 +134,12 @@
     <div class="top">
       <div>
         <img src="/logo.png" alt="">
-        <div class="soon">Coming Soon...</div>
+        <div>
+          <%if(canRegister) { %>
+            <a class="register" href="#register">Register Account</a>
+          <% } %>
+          <span class="soon">Coming Soon...</span>
+        </div>
       </div>
     </div>
   </main>
@@ -111,18 +161,37 @@
         <input type="password" name="passwordConfirm" id="passwordConfirm" autocomplete="new-password">
       </fieldset>
       <div class="error"></div>
-      <div class="loading"></div>
+      <div class="success"></div>
+      <div class="loading">
+        <div class="loader"></div>
+      </div>
       <input class="button" type="submit" value="Register">
     </form>
   </div>
 
   <script nonce="<%= nonce %>">
     document.addEventListener('DOMContentLoaded', () => {
+      const registerWrapper = document.querySelector('.register-form');
       const registerForm = document.getElementById('register');
       const canRegister = registerForm.getAttribute('disabled');
 
       if(!canRegister) return;
 
+      const openEl = document.querySelector('a[href="#register"]');
+      if(!openEl) return;
+      openEl.addEventListener('click', () => {
+        registerWrapper.classList.add('active');
+      });
+
+      document.addEventListener('click', (e) => {
+        if(e.target !== openEl && !e.target.closest('.register-form')) registerWrapper.classList.remove('active')
+      });
+
+      document.addEventListener('keydown', (e) => {
+        if(e.key === 'Escape') registerWrapper.classList.remove('active')
+      });
+
+      const successEl = registerForm.querySelector('.success');
       const errorEl = registerForm.querySelector('.error');
       function error(clear, message) {
         if(clear) {
@@ -132,9 +201,11 @@
           errorEl.innerText = `Error: ${message}`;
           errorEl.classList.remove('hide');
         }
+
+        registerWrapper.classList.remove('loading');
       }
 
-      registerForm.addEventListener('submit', (e) => {
+      registerForm.addEventListener('submit', async (e) => {
         e.preventDefault();
 
         const formData = new FormData(registerForm);
@@ -151,11 +222,30 @@
         } else if(password !== passwordConfirm) {
           error(false, 'Passwords do not match');
         } else {
-          error(true)
+          try {
+            error(true);
+            registerWrapper.classList.add('loading');
+
+            const response = await fetch(url, {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify(formData),
+            });
+
+            if (!response.ok) {
+              const errorText = await response.text();
+              error(false, errorText);
+              throw new Error(`Registration error ${response.status}: ${errorText}`);
+            }
+
+            const responseData = await response.json(); // Parse the JSON response
+            registerWrapper.classList.remove('loading');
+            successEl.innerText = `You're all set, ${formJSON.username}\n You can now log into pSWG`;
+          } catch(err) {
+            console.error('Error posting registration form: ', err);
+            error(false, 'Registration error - try again later');
+          }
         }
-
-
-
         console.log(formJSON);
       });
     });

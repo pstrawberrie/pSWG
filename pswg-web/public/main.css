@@ -42,6 +42,11 @@ body {
   overflow-x: hidden;
 }
 
+a {
+  color: inherit;
+  cursor: url('/cursor_link.png') 15 15, auto;
+}
+
 /* Util */
 .center {
   position: relative;
@@ -60,7 +65,7 @@ body {
 button,
 .button {
   position: relative;
-  padding: 5px 10px;
+  padding: 13px 15px 10px;
   width: 100%;
   border-radius: 4px;
   margin-bottom: 6px;
@@ -79,6 +84,22 @@ button,
 button:hover,
 .button:hover {
   border-color: var(--c-blue);
+}
+
+/* Loader */
+/* HTML: <div class="loader"></div> */
+/* HTML: <div class="loader"></div> */
+.loader {
+  width: 15px;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  animation: l5 1s infinite linear alternate;
+}
+@keyframes l5 {
+    0%  {box-shadow: 20px 0 #fff, -20px 0 #fff2;background: #fff }
+    33% {box-shadow: 20px 0 #fff, -20px 0 #fff2;background: #fff2}
+    66% {box-shadow: 20px 0 #fff2,-20px 0 #fff; background: #fff2}
+    100%{box-shadow: 20px 0 #fff2,-20px 0 #fff; background: #fff }
 }
 
 /* BG */

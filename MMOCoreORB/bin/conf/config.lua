@@ -261,8 +261,7 @@ Core3 = {
 	},
 
 	MissionManager = {
-		ListRequestCooldown = 1000,
-		PlayerBountyCooldownTime = 3600000, -- 1 hour -- this is possibly missing another config flag that needs to be set (PlayerBountyCooldown = 1)?
+		ListRequestCooldown = 1000
 	},
 
 	------JTL------
