@@ -42,7 +42,25 @@
 
 
 object_tangible_beta_beta_terminal_wound = object_tangible_beta_shared_beta_terminal_wound:new {
-
+	gameObjectType = 16400,
+	customName = "Galactic Wellfare Terminal",
+	maxCondition = 0,
+	templateType = CHARACTERBUILDERTERMINAL,
+  suiBoxTitle = "Wellfare Services",
+  suiBoxText = "Life can be harsh in this star wars galaxy",
+	itemList = {
+    "Apply Starter Buff", "enhance_character",
+    "Heal Wounds", "cleanse_character",
+    "Remove Buffs and Filling", "reset_buffs",
+    "Knowledge",
+    {
+      "Learn Languages", "language",
+      "Learn Dancer", "social_dancer_master",
+      "Learn Musician", "social_musician_master",
+      "Learn Merchant", "crafting_merchant_master",
+      "Learn Politician", "social_politician_master",
+    }
+	}
 }
 
 ObjectTemplates:addTemplate(object_tangible_beta_beta_terminal_wound, "object/tangible/beta/beta_terminal_wound.iff")
