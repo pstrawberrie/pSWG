@@ -58,9 +58,10 @@ object_tangible_beta_beta_terminal_wound = object_tangible_beta_shared_beta_term
     "Knowledge",
     {
       "Learn Languages", "language",
+      "Learn Surveying", "crafting_artisan_survey_04",
       "Learn Dancer", "social_dancer_master",
       "Learn Musician", "social_musician_master",
-      "Learn Merchant", "crafting_merchant_master",
+      "Learn Image Designer", "social_imagedesigner_master",
       "Learn Politician", "social_politician_master"
     },
     "Ouchies",
@@ -73,6 +74,10 @@ object_tangible_beta_beta_terminal_wound = object_tangible_beta_shared_beta_term
 			"Apply Mind Disease DOT", "apply_disease_dot_mind",
 			"Apply Fire DOT", "apply_fire_dot",
 			"Clear DOTs", "clear_dots"
+    },
+    "DANGER",
+    {
+      "Unlearn All Skills", "unlearn_all_skills"
     }
 	}
 }
