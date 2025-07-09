@@ -49,9 +49,12 @@ object_tangible_beta_beta_terminal_wound = object_tangible_beta_shared_beta_term
   suiBoxTitle = "Wellfare Services",
   suiBoxText = "Life can be harsh in this star wars galaxy.",
 	itemList = {
-    "Apply Starter Buff", "enhance_character",
-    "Heal Wounds", "cleanse_character",
-    "Remove Buffs and Filling", "reset_buffs",
+    "Buffs",
+    {
+      "Apply Starter Buff", "enhance_character",
+      "Heal Wounds", "cleanse_character",
+      "Remove Buffs and Filling", "reset_buffs",
+    },
     "Knowledge",
     {
       "Learn Languages", "language",
