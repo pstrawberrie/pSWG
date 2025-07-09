@@ -291,7 +291,7 @@ void SuiManager::handleCharacterBuilderSelectItem(CreatureObject* player, SuiBox
 
 					player->setShockWounds(0);
 				} else {
-					player->sendSystemMessage("Not within combat.");
+					player->sendSystemMessage("You cannot heal your wounds while in combat.");
 					return;
 				}
 			} else if (templatePath == "fill_force_bar") {
@@ -424,7 +424,7 @@ void SuiManager::handleCharacterBuilderSelectItem(CreatureObject* player, SuiBox
 					TransactionLog trx(TrxCode::CHARACTERBUILDER, player, 50000, true);
 					player->addCashCredits(50000, true);
 				}
-				player->sendSystemMessage("You have received 50.000 Credits");
+				player->sendSystemMessage("You have received 50k Credits");
 
 			} else if (templatePath == "faction_rebel") {
 				ghost->increaseFactionStanding("rebel", 100000);
@@ -458,8 +458,15 @@ void SuiManager::handleCharacterBuilderSelectItem(CreatureObject* player, SuiBox
 			} else if (templatePath == "apply_fire_dot") {
 				player->addDotState(player, CreatureState::ONFIRE, scob->getObjectID(), 100, CreatureAttribute::UNKNOWN, 60, -1, 0, 20);
 
-			} else if (templatePath == "clear_dots") {
-				player->clearDots();
+			} else if (templatePath == "clear_dots") { // pswg - don't allow clear_dots in combat
+				if (!player->isInCombat()) {
+					player->sendSystemMessage("Your DOTs have been cleared.");
+					player->clearDots();
+
+				} else {
+					player->sendSystemMessage("You cannot clear your DOTs while in combat.");
+					return;
+				}
 			} else if (templatePath == "frs_light_side") {
 				PlayerManager* pman = zserv->getPlayerManager();
 				pman->unlockFRSForTesting(player, 1);

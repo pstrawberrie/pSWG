@@ -58,7 +58,17 @@ object_tangible_beta_beta_terminal_wound = object_tangible_beta_shared_beta_term
       "Learn Dancer", "social_dancer_master",
       "Learn Musician", "social_musician_master",
       "Learn Merchant", "crafting_merchant_master",
-      "Learn Politician", "social_politician_master",
+      "Learn Politician", "social_politician_master"
+    },
+    "Ouchies", {
+      "Apply Poison DOT", "apply_poison_dot",
+			"Apply Bleed DOT", "apply_bleed_dot",
+			"Apply Disease DOT", "apply_disease_dot",
+			"Apply Health Disease DOT", "apply_disease_dot_health",
+			"Apply Action Disease DOT", "apply_disease_dot_action",
+			"Apply Mind Disease DOT", "apply_disease_dot_mind",
+			"Apply Fire DOT", "apply_fire_dot",
+			"Clear DOTs", "clear_dots"
     }
 	}
 }
