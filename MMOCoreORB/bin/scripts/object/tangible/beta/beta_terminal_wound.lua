@@ -47,29 +47,30 @@ object_tangible_beta_beta_terminal_wound = object_tangible_beta_shared_beta_term
 	maxCondition = 0,
 	templateType = CHARACTERBUILDERTERMINAL,
   suiBoxTitle = "Wellfare Services",
-  suiBoxText = "Life can be harsh in this star wars galaxy",
+  suiBoxText = "Life can be harsh in this star wars galaxy.",
 	itemList = {
     "Apply Starter Buff", "enhance_character",
     "Heal Wounds", "cleanse_character",
     "Remove Buffs and Filling", "reset_buffs",
-    "Knowledge",
-    {
-      "Learn Languages", "language",
-      "Learn Dancer", "social_dancer_master",
-      "Learn Musician", "social_musician_master",
-      "Learn Merchant", "crafting_merchant_master",
-      "Learn Politician", "social_politician_master"
-    },
-    "Ouchies", {
-      "Apply Poison DOT", "apply_poison_dot",
-			"Apply Bleed DOT", "apply_bleed_dot",
-			"Apply Disease DOT", "apply_disease_dot",
-			"Apply Health Disease DOT", "apply_disease_dot_health",
-			"Apply Action Disease DOT", "apply_disease_dot_action",
-			"Apply Mind Disease DOT", "apply_disease_dot_mind",
-			"Apply Fire DOT", "apply_fire_dot",
-			"Clear DOTs", "clear_dots"
-    }
+    -- "Knowledge",
+    -- {
+    --   "Learn Languages", "language",
+    --   "Learn Dancer", "social_dancer_master",
+    --   "Learn Musician", "social_musician_master",
+    --   "Learn Merchant", "crafting_merchant_master",
+    --   "Learn Politician", "social_politician_master"
+    -- },
+    -- "Ouchies",
+    -- {
+    --   "Apply Poison DOT", "apply_poison_dot",
+		-- 	"Apply Bleed DOT", "apply_bleed_dot",
+		-- 	"Apply Disease DOT", "apply_disease_dot",
+		-- 	"Apply Health Disease DOT", "apply_disease_dot_health",
+		-- 	"Apply Action Disease DOT", "apply_disease_dot_action",
+		-- 	"Apply Mind Disease DOT", "apply_disease_dot_mind",
+		-- 	"Apply Fire DOT", "apply_fire_dot",
+		-- 	"Clear DOTs", "clear_dots"
+    -- }
 	}
 }
 
