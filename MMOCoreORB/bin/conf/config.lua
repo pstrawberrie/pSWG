@@ -243,7 +243,7 @@ Core3 = {
 	UnloadContainers = 1, -- Whether to unload container contents from RAM after the container hasn't been accessed for a time
 
 	------Server Config------
-	CharacterBuilderEnabled = "false",
+	CharacterBuilderEnabled = "true",
 	AutoReg = 1,
 
 	------TOS Config------
