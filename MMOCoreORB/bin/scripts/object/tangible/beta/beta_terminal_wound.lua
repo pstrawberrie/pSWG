@@ -64,7 +64,7 @@ object_tangible_beta_beta_terminal_wound = object_tangible_beta_shared_beta_term
       "Learn Image Designer", "social_imagedesigner_master",
       "Learn Politician", "social_politician_master"
     },
-    "Ouchies",
+    "Tumble",
     {
       "Apply Poison DOT", "apply_poison_dot",
 			"Apply Bleed DOT", "apply_bleed_dot",
@@ -74,10 +74,6 @@ object_tangible_beta_beta_terminal_wound = object_tangible_beta_shared_beta_term
 			"Apply Mind Disease DOT", "apply_disease_dot_mind",
 			"Apply Fire DOT", "apply_fire_dot",
 			"Clear DOTs", "clear_dots"
-    },
-    "DANGER",
-    {
-      "Unlearn All Skills", "unlearn_all_skills"
     }
 	}
 }

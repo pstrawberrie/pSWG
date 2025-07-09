@@ -21,9 +21,9 @@ class SuiCharacterBuilderBox extends SuiListBox {
 
 		Logger.setLoggingName("SuiCharacterBuilderBox");
 
-		setPromptTitle("Character Builder");
+		setPromptTitle("Galactic Wellfare Services");
 
-		setPromptText("Provided below are items which the developers feel are necessary to complete the current testing objectives. Please select only the items which you require.");
+		setPromptText("Life can be hard in the star wars galaxy. Thanks to the Galactic Wellfare Commission, it can be just a little bit easier.");
 
 		rootNode = root;
 
