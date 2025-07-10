@@ -27,7 +27,8 @@ john_johnson = Creature:new {
 	optionsBitmask = AIENABLED + CONVERSABLE,
 	diet = HERBIVORE,
 
-	templates = {"object/mobile/gungan_male.iff"},
+	-- templates = {"object/mobile/woolamander_hue.iff"},
+	templates = {"object/mobile/ewok_male.iff"},
 	lootGroups = {},
 
 	-- Primary and secondary weapon should be different types (rifle/carbine, carbine/pistol, rifle/unarmed, etc)
