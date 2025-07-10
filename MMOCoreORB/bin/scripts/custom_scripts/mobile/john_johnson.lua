@@ -1,10 +1,8 @@
 john_johnson = Creature:new {
 	objectName = "John Johnson",
-	randomNameType = NAME_GENERIC,
-	randomNameTag = false,
-	mobType = MOB_NPC,
 	socialGroup = "townsperson",
 	faction = "townsperson",
+	mobType = MOB_NPC,
 	level = 10,
 	chanceHit = 0.25,
 	damageMin = 50,
