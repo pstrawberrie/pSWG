@@ -4,15 +4,14 @@ function galacticWellfareConvoHandler:getInitialScreen(pPlayer, pNpc, pConvTempl
 	local convoTemplate = LuaConversationTemplate(pConvTemplate)
 	local greetingScreen = convoTemplate:getScreen("greeting")
 	
-	-- Get the player's first name
-	local playerName = CreatureObject(pPlayer):getFirstName()
+	-- Clone the screen so we can modify it
+	local pScreenClone = greetingScreen:cloneScreen()
+	local pClonedConvo = LuaConversationScreen(pScreenClone)
 	
-	-- Replace the placeholder with the actual player name
-	local dialogText = greetingScreen:getDialogText()
-	dialogText = string.gsub(dialogText, "%%TT_NAME%%", playerName)
-	greetingScreen:setDialogText(dialogText)
+	-- Set the player's name using the proper method
+	pClonedConvo:setDialogTextTU(CreatureObject(pPlayer):getFirstName())
 	
-	return greetingScreen
+	return pScreenClone
 end
 
 function galacticWellfareConvoHandler:runScreenHandlers(pConvTemplate, pPlayer, pNpc, selectedOption, pConvScreen)
