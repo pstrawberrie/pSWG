@@ -7,7 +7,7 @@ galactic_wellfare_agent_convo_template = ConvoTemplate:new {
 
 greeting = ConvoScreen:new {
 	id = "greeting",
-	customDialogText = "Stay safe out there",
+	customDialogText = "%TT_NAME%, the Galactic Wellfare Commission recently suffered a devastating terrorist attack. It will take us some time to recover...",
 	stopConversation = "true",
 	options = {}
 }
