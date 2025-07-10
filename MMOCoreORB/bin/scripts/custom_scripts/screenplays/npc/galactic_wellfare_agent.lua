@@ -1,21 +1,21 @@
-JohnJohnsonScreenPlay = ScreenPlay:new {
+GalacticWellfareAgentScreenPlay = ScreenPlay:new {
 	numberOfActs = 1,
-	screenplayName = "JohnJohnsonScreenPlay"
+	screenplayName = "GalacticWellfareAgentScreenPlay"
 }
 
 -- Register the screenplay to be loaded at server startup
-registerScreenPlay("JohnJohnsonScreenPlay", true)
+registerScreenPlay("GalacticWellfareAgentScreenPlay", true)
 
 -- This function gets called automatically when the screenplay starts
-function JohnJohnsonScreenPlay:start()
+function GalacticWellfareAgentScreenPlay:start()
 	self:spawnMobiles()
 end
 
 -- Spawn our NPC
-function JohnJohnsonScreenPlay:spawnMobiles()
+function GalacticWellfareAgentScreenPlay:spawnMobiles()
 	-- Format: spawnMobile(planet, template, respawn, x, z, y, direction, cell, mood)
 	-- planet = "corellia" (planet name: corellia, tatooine, naboo, dantooine, etc.)
-	-- template = "john_johnson" (our custom creature template)
+	-- template = "galactic_wellfare_agent" (our custom creature template)
 	-- respawn = 300 (respawn time in seconds, 0 = no respawn, 300 = 5 minutes)
 	-- x, z, y (duh)
 	-- direction = 90 (facing direction in degrees: 0=North, 90=East, 180=South, 270=West)
@@ -24,5 +24,5 @@ function JohnJohnsonScreenPlay:spawnMobiles()
 	-- mood = "conversation" (NPC mood string, see examples in: MMOCoreORB/bin/scripts/screenplays/static_spawns/rori_static_spawns.lua)
 	--   Common moods: "conversation", "calm", "nervous", "angry", "sad", "happy", "worried", "neutral"
 	--   Special moods: "npc_sitting_ground", "npc_sitting_chair", "npc_use_terminal_high", "fishing", "threaten"
-	spawnMobile("corellia", "john_johnson", 300, -137, 28, -4728, 270, 0, "conversation")
+	spawnMobile("corellia", "galactic_wellfare_agent", 300, -137, 28, -4728, 270, 0, "conversation")
 end
