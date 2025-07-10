@@ -7,7 +7,7 @@ john_johnson_convo_template = ConvoTemplate:new {
 
 greeting = ConvoScreen:new {
 	id = "greeting",
-	leftDialog = "Nice to be seeing yousa here!",
+	leftDialog = "@conversation/greeter_coronet_merchant:s_b78b7ed6",
 	stopConversation = "true",
 	options = {}
 }
