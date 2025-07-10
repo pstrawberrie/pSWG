@@ -13,9 +13,14 @@ end
 
 -- Spawn our NPC
 function JohnJohnsonScreenPlay:spawnMobiles()
-	-- Spawn John Johnson at the specified coordinates
-	-- Format: spawnMobile(planet, template, respawn, x, z, y, direction, cell, mood)
-	-- planet = "corellia", template = "commoner", respawn = 300 (5 minutes), 
-	-- x = -390, z = 28, y = -4639, direction = 0 (facing north), cell = 0 (outside), mood = "conversation"
-	spawnMobile("corellia", "commoner", 300, -390, 28, -4639, 0, 0, "conversation")
+    -- Spawn John Johnson at the specified coordinates
+    -- Format: spawnMobile(planet, template, respawn, x, z, y, direction, cell, mood)
+    -- planet = "corellia", template = "commoner", respawn = 300 (5 minutes), 
+    -- x = -390, z = 28, y = -4639, direction = 0 (facing north), cell = 0 (outside), mood = "conversation"
+    
+    spawnMobile("corellia", "commoner", 300, -390, 28, -4639, 0, 0, "conversation")
+    local pNpc = spawnMobile("corellia", "gungan_hermit", 300, -390, 28, -4639, 0, 0, "conversation")
+    if pNpc ~= nil then
+        self:setCustomName(pNpc, "John Johnson")
+    end
 end
