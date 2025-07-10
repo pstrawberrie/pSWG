@@ -7,7 +7,7 @@ example_npc_convo_template = ConvoTemplate:new {
 
 greeting = ConvoScreen:new {
 	id = "greeting",
-	customDialogText = "Hello there! I'm an example NPC. Nice to meet you!",
+	customDialogText = "Hello %TT_NAME%! I'm an example NPC. Nice to meet you!",
 	stopConversation = "true",
 	options = {}
 }

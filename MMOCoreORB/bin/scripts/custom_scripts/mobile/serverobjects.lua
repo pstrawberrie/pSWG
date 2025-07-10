@@ -8,6 +8,6 @@
 -- includeFile("../custom_scripts/mobile/npc/example_npc.lua")
 -- includeFile("../custom_scripts/mobile/conversations/example_npc_convo.lua")
 
--- John Johnson
-includeFile("../custom_scripts/mobile/npc/john_johnson.lua")
-includeFile("../custom_scripts/mobile/conversations/john_johnson_convo.lua")
+-- Galactic Wellfare Agent
+includeFile("../custom_scripts/mobile/npc/galactic_wellfare_agent.lua")
+includeFile("../custom_scripts/mobile/conversations/galactic_wellfare_agent.lua")

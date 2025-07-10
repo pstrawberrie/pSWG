@@ -1,6 +1,6 @@
-john_johnson = Creature:new {
-	objectName = "john_johnson",
-	customName = "John Johnson",
+galactic_wellfare_agent = Creature:new {
+	objectName = "galactic_wellfare_agent",
+	customName = "Galactic Wellfare Agent",
 	socialGroup = "townsperson",
 	faction = "townsperson",
 	mobType = MOB_NPC,
@@ -36,7 +36,7 @@ john_johnson = Creature:new {
 	-- Unarmed should be put on secondary unless the mobile doesn't use weapons, in which case "unarmed" should be put primary and "none" as secondary
 	primaryWeapon = "unarmed",
 	secondaryWeapon = "none",
-	conversationTemplate = "john_johnson_convo_template",
+	conversationTemplate = "galactic_wellfare_agent_convo_template",
 
 	-- primaryAttacks and secondaryAttacks should be separate skill groups specific to the weapon type listed in primaryWeapon and secondaryWeapon
 	-- Use merge() to merge groups in creatureskills.lua together. If a weapon is set to "none", set the attacks variable to empty brackets
@@ -44,4 +44,4 @@ john_johnson = Creature:new {
 	secondaryAttacks = {}
 }
 
-CreatureTemplates:addCreatureTemplate(john_johnson, "john_johnson") 
+CreatureTemplates:addCreatureTemplate(galactic_wellfare_agent, "galactic_wellfare_agent") 
