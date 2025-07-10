@@ -24,5 +24,5 @@ function ExampleNpcScreenPlay:spawnMobiles()
 	-- mood = "conversation" (NPC mood string, see examples in: MMOCoreORB/bin/scripts/screenplays/static_spawns/rori_static_spawns.lua)
 	--   Common moods: "conversation", "calm", "nervous", "angry", "sad", "happy", "worried", "neutral"
 	--   Special moods: "npc_sitting_ground", "npc_sitting_chair", "npc_use_terminal_high", "fishing", "threaten"
-	spawnMobile("corellia", "example_npc", 300, -135, 28, -4728, 270, 0, "conversation")
+	spawnMobile("corellia", "example_npc", 300, -139, 28, -4726, 270, 0, "conversation")
 end 
