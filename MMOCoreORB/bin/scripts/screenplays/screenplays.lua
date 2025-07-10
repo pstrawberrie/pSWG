@@ -730,8 +730,5 @@ includeFile("tests/ai_test.lua")
 -- Server Event Automation
 includeFile("events/ServerEventAutomation.lua")
 
--- pSWG
-includeFile("custom_content/screenplays.lua")
-
 -- Custom content - Loads last to allow for overrides
 includeFile("../custom_scripts/screenplays/screenplays.lua")
