@@ -1,5 +1,5 @@
 john_johnson_convo_template = ConvoTemplate:new {
-	initialScreen = "",
+	initialScreen = "greeting",
 	templateType = "Lua",
 	luaClassHandler = "johnJohnsonConvoHandler",
 	screens = {}

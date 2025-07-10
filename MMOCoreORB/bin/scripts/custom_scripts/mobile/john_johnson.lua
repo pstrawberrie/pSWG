@@ -1,5 +1,6 @@
 john_johnson = Creature:new {
-	objectName = "John Johnson",
+	objectName = "john_johnson",
+	customName = "John Johnson",
 	socialGroup = "townsperson",
 	faction = "townsperson",
 	mobType = MOB_NPC,
