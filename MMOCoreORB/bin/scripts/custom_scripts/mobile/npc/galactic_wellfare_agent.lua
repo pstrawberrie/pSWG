@@ -27,8 +27,8 @@ galactic_wellfare_agent = Creature:new {
 	optionsBitmask = AIENABLED + CONVERSABLE,
 	diet = HERBIVORE,
 
-	-- templates = {"object/mobile/gungan_male.iff"},
-	templates = {"object/mobile/dressed_jedi_trainer_twilek_female_01.iff"},
+	templates = {"object/mobile/gungan_male.iff"},
+	-- templates = {"object/mobile/dressed_jedi_trainer_twilek_female_01.iff"},
 	
 	lootGroups = {},
 
