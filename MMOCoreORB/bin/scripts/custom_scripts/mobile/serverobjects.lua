@@ -1,1 +1,1 @@
-includeFile("john_johnson.lua")
+includeFile("../custom_scripts/mobile/john_johnson.lua")
