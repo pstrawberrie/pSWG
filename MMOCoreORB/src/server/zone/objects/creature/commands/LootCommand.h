@@ -177,7 +177,7 @@ public:
 				if (zone == nullptr) {
 					return GENERALERROR;
 				}
-				zone->getInRangeObjects(creature->getWorldPositionX(), creature->getWorldPositionY(), 32, &closeObjects, true, true);
+				zone->getInRangeObjects(creature->getWorldPositionX(), creature->getWorldPositionZ(), creature->getWorldPositionY(), 32, &closeObjects, true, true);
 			} else {
 				closeObjectsVector->safeCopyReceiversTo(closeObjects, CloseObjectsVector::CREOTYPE);
 			}
