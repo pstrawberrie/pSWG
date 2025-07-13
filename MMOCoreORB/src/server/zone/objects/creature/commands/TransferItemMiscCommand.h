@@ -102,7 +102,7 @@ public:
 		return doTransferItemMisc(creature, objectToTransfer, destinationObject, transferType, trx);
 	}
 
-	int static doTransferItemMisc(CreatureObject* creature, SceneObject* objectToTransfer, SceneObject* destinationObject, int transferType, TransactionLog& trx) {
+	int static doTransferItemMisc(CreatureObject* creature, SceneObject* objectToTransfer, SceneObject* destinationObject, int transferType, TransactionLog& trx, float maxDistance = 16.5f) { //Infinity: Support /loot area command up to 24 meters
 		trx.addState("transferType", transferType);
 
 		if (objectToTransfer == nullptr) {
@@ -191,8 +191,6 @@ public:
 
 		if (zoneObject != nullptr) {
 			ManagedReference<SceneObject*> rootParent = objectToTransfer->getRootParent();
-
-			float maxDistance =  16.5;
 
 			if (rootParent != nullptr && !rootParent->isBuildingObject() && !rootParent->isPobShip() && parent != nullptr && !parent->isBuildingObject() && !parent->isPobShip()) {
 				float rootDist = rootParent->getDistanceTo(creature);
