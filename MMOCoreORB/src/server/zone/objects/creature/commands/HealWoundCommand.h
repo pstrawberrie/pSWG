@@ -133,14 +133,14 @@ public:
 		if (droidMedicalRating > 0) {
 				// Has a droid with a medical module out, can buff anywhere
 		} else {
-				// No droid: must be in a structure with private_medical_rating (STRUCTURE skill mod > 0)
-				int structureMedicalRating = creature->getSkillModOfType("private_medical_rating", SkillModManager::STRUCTURE);
+			// No droid: must be in a structure with private_medical_rating (STRUCTURE skill mod > 0)
+			int structureMedicalRating = creature->getSkillModOfType("private_medical_rating", SkillModManager::STRUCTURE);
 
-				if (structureMedicalRating <= 0) {
-						creature->sendSystemMessage("@healing_response:must_be_in_hospital");
-						return false;
-				}
-				// Otherwise, allowed, continue
+			if (structureMedicalRating <= 0) {
+				creature->sendSystemMessage("@healing_response:must_be_in_hospital");
+				return false;
+			}
+			// Otherwise, allowed, continue
 		}
 
 		if (creature->isInCombat()) {
