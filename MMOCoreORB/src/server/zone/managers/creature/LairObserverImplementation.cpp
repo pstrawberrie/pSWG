@@ -21,6 +21,7 @@
 #include "server/zone/managers/creature/LairRepopulateTask.h"
 #include "server/zone/managers/creature/SpawnLairMobileTask.h"
 #include "server/chat/ChatManager.h"
+#include "server/zone/managers/creature/LairSpawnAreaUtils.h"
 
 //#define DEBUG_WILD_LAIRS
 // #define DEBUG_LAIR_HEALING
@@ -224,15 +225,8 @@ void LairObserverImplementation::notifyDestruction(TangibleObject* lair, Tangibl
 		return;
 	}
 
-	// pswg add sr2 fix for instant lair spawns after lair destroy
-	auto zone = lair->getZone();
-	if (zone != nullptr) {
-		auto planetManager = zone->getPlanetManager();
-		if (planetManager != nullptr) {
-			info(true) << "LairObserver: Registering destroyed lair location (" << lair->getPositionX() << ", " << lair->getPositionY() << ") for no-spawn zone";
-			planetManager->registerDestroyedLairLocation(lair->getPositionX(), lair->getPositionY());
-		}
-	}
+	// pswg - SR Modification: Create temporary no-spawn area after lair destruction
+	LairSpawnAreaUtils::createNoSpawnArea(lair);
 
 	PlayClientEffectObjectMessage* explode = new PlayClientEffectObjectMessage(lair, "clienteffect/lair_damage_heavy.cef", "");
 	lair->broadcastMessage(explode, false);
