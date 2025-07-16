@@ -24,7 +24,7 @@ galactic_wellfare_agent = Creature:new {
 	ferocity = 0,
 	pvpBitmask = NONE,
 	creatureBitmask = NONE,
-	optionsBitmask = AIENABLED + CONVERSABLE,
+	optionsBitmask = INVULNERABLE + CONVERSABLE,
 	diet = HERBIVORE,
 
 	-- templates = {"object/mobile/gungan_male.iff"},
