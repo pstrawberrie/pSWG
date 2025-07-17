@@ -133,7 +133,7 @@ public:
 			String plural = maxOnline > 1 ? "s" : "";
 
 			msg << "\\#ffff00You have reached this server's limit of " <<  maxOnline << " character" << plural << " online per account.\\#." << endl << endl
-				<< "\\#ffffffPlease logout your other character" << plural << " and try again.\\#.";
+				<< "\\#ffffffPlease log out an active character and try again.\\#.";
 
 			ErrorMessage* errMsg = new ErrorMessage("Login Error", msg.toString(), 0x0);
 			client->sendMessage(errMsg);
