@@ -319,11 +319,9 @@ bool PlayerCreationManager::createCharacter(ClientCreateCharacterCallback* callb
 	auto client = callback->getClient();
 	auto maxchars = ConfigManager::instance()->getInt("Core3.PlayerCreationManager.MaxCharactersPerGalaxy", 10);
 
-	// pswg - display the max characters per galaxy from the config in the error message
 	if (client->getCharacterCount(zoneServer.get()->getGalaxyID()) >= maxchars) {
-		StringBuffer errorMsg;
-		errorMsg << "You are limited to " << maxchars << " characters per galaxy.";
-		ErrorMessage* errMsg = new ErrorMessage("Create Error", errorMsg.toString(), 0x0);
+		// note: this error message is not used - the actual message is in the tre file @ string/en/ui.stf
+		ErrorMessage* errMsg = new ErrorMessage("Create Error", "You are limited to 10 characters per galaxy.", 0x0);
 		client->sendMessage(errMsg);
 
 		return false;
