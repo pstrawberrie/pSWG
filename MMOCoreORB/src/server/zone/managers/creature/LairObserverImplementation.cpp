@@ -286,7 +286,6 @@ void LairObserverImplementation::doAggro(TangibleObject* lair, TangibleObject* a
 		return;
 	}
 
-	int aggroCount = 0;
 	for (int i = 0; i < spawnedCreatures.size(); ++i) {
 		auto creO = spawnedCreatures.get(i);
 
@@ -294,34 +293,19 @@ void LairObserverImplementation::doAggro(TangibleObject* lair, TangibleObject* a
 			continue;
 		}
 
+		Locker clocker(creO, lair);
+
 		auto agent = creO->asAiAgent();
 
 		if (agent == nullptr) {
 			continue;
 		}
 
-		// Check if already defending against this attacker
-		if (agent->getDefenderList()->contains(attacker)) {
-			continue;
-		}
+		Locker tarLock(attacker, creO);
 
-		// Stagger aggro to prevent CPU spike when many creatures aggro at once
-		int delay = aggroCount * 50; // 50ms between each creature
-		aggroCount++;
-		
-		Core::getTaskManager()->scheduleTask([agent, attacker, lair]() {
-			if (agent == nullptr || attacker == nullptr)
-				return;
-				
-			Locker clocker(agent, lair);
-			if (agent->getZone() == nullptr || agent->isDead())
-				return;
-				
-			Locker tarLock(attacker, agent);
-			agent->addDefender(attacker);
-			agent->setTargetObject(attacker);
-			agent->setCombatState();
-		}, "StaggeredLairAggro", delay);
+		agent->addDefender(attacker);
+		agent->setTargetObject(attacker);
+		agent->setCombatState();
 	}
 }
 
@@ -791,22 +775,10 @@ void LairObserverImplementation::spawnLairMobile(LairObject* lair, int spawnNumb
 	if (threatMap != nullptr && threatMap->size() > 0) {
 		ManagedReference<CreatureObject*> highestThreatAttacker = cast<CreatureObject*>(threatMap->getHighestThreatAttackerNoRangeCheck());
 		if (highestThreatAttacker != nullptr) {
-			// Stagger the aggro slightly to reduce CPU spike
-			int aggroDelay = 100 + (System::random(400)); // 100-500ms random delay
-			
-			Core::getTaskManager()->scheduleTask([agent, highestThreatAttacker]() {
-				if (agent == nullptr || highestThreatAttacker == nullptr)
-					return;
-					
-				Locker agentLock(agent);
-				if (agent->getZone() == nullptr || agent->isDead())
-					return;
-					
-				Locker tarLock(highestThreatAttacker, agent);
-				agent->addDefender(highestThreatAttacker);
-				agent->setTargetObject(highestThreatAttacker);
-				agent->setCombatState();
-			}, "DelayedSpawnAggro", aggroDelay);
+			Locker tarLock(highestThreatAttacker, agent);
+			agent->addDefender(highestThreatAttacker);
+			agent->setTargetObject(highestThreatAttacker);
+			agent->setCombatState();
 		}
 	}
 
