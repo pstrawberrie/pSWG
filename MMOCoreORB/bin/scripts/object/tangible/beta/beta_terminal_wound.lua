@@ -49,6 +49,10 @@ object_tangible_beta_beta_terminal_wound = object_tangible_beta_shared_beta_term
   suiBoxTitle = "Wellfare Services",
   suiBoxText = "Life can be harsh in this star wars galaxy.",
 	itemList = {
+		"Travel",
+		{
+			"Travel to GWC Headquarters", "goto_gwc_headquarters",
+		},
     "Buffs",
     {
       "Apply Starter Buff", "enhance_character",

@@ -501,6 +501,14 @@ void SuiManager::handleCharacterBuilderSelectItem(CreatureObject* player, SuiBox
 			// Bio-Engineer Testing
 			} else if (templatePath.contains("dna_set:")) {
 				bluefrog->giveDnaTestingSet(player, templatePath.subString(8));
+			} else if (templatePath == "goto_gwc_headquarters") { // pswg - teleport player to GWC Headquarters
+				if (!player->isInCombat()) {
+					player->sendSystemMessage("Initiating GWC Travel...");
+					player->switchZone("naboo", -4873, 6, 4142, 0);
+				} else {
+					player->sendSystemMessage("You cannot travel while in combat.");
+					return;
+				}
 			} else {
 				if (templatePath.length() > 0) {
 					SkillManager::instance()->awardSkill(templatePath, player, true, true, true);
