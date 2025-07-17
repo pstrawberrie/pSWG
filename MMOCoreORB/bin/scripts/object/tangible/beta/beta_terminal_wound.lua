@@ -58,10 +58,11 @@ object_tangible_beta_beta_terminal_wound = object_tangible_beta_shared_beta_term
     "Knowledge",
     {
       "Learn Languages", "language",
-      "Learn Surveying", "crafting_artisan_survey_04",
+      "Learn Entertainer", "social_entertainer_master",
       "Learn Dancer", "social_dancer_master",
       "Learn Musician", "social_musician_master",
       "Learn Image Designer", "social_imagedesigner_master",
+      "Learn Merchant", "crafting_merchant_master",
       "Learn Politician", "social_politician_master"
     },
     "Tumble",
