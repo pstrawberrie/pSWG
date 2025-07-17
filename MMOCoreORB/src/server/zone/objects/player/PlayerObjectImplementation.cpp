@@ -573,8 +573,9 @@ void PlayerObjectImplementation::notifySceneReady() {
 			}
 		}
 
+		// pswg - disable helper droid
 		// Create or spawn the helper droid
-		createHelperDroid();
+		// createHelperDroid();
 	}
 
 	// info(true) << creature->getDisplayedName() << " --- notifySceneReady COMPLETE with Zone Name: " << zone->getZoneName() << " World Pos: " << creature->getWorldPosition().toString();
@@ -3766,9 +3767,6 @@ String PlayerObjectImplementation::getPlayedTimeString(bool verbose) const {
 }
 
 void PlayerObjectImplementation::createHelperDroid() {
-	// pswg - disable helper droid
-	return;
-
 	// Only spawn droid if character is less than 1 days old
 	if (getCharacterAgeInDays() >= 1 || isPrivileged())
 		return;

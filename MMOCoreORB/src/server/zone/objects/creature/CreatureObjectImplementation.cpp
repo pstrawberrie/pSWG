@@ -1418,15 +1418,16 @@ void CreatureObjectImplementation::addSkill(Skill* skill, bool notifyClient) {
 		String baseSkill[6] = {"combat_brawler_novice", "combat_marksman_novice", "outdoors_scout_novice", "science_medic_novice", "crafting_artisan_novice", "social_entertainer_novice"};
 		bool shouldSpawnHelper = false;
 
-		for (int i = 0; i < 6; i++) {
-			String baseName = baseSkill[i];
-			String skillName = skill->getSkillName();
+		// pswg - disable helper droid
+		// for (int i = 0; i < 6; i++) {
+		// 	String baseName = baseSkill[i];
+		// 	String skillName = skill->getSkillName();
 
-			if (baseName == skillName) {
-				shouldSpawnHelper = true;
-				break;
-			}
-		}
+		// 	if (baseName == skillName) {
+		// 		shouldSpawnHelper = true;
+		// 		break;
+		// 	}
+		// }
 
 		if (shouldSpawnHelper) {
 			PlayerObject* ghost = getPlayerObject();
