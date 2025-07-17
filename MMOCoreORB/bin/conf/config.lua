@@ -250,8 +250,8 @@ Core3 = {
 	TermsOfServiceVersion = 0,
 	TermsOfService = "",
 
-	------Game------
-	ConfigManager = {
+	------Game Config------
+	PlayerCreationManager = {
 		MaxCharactersPerGalaxy = 3,
 	},
 
