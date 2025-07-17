@@ -933,8 +933,9 @@ void ZoneServerImplementation::loadLoginMessage() {
 		reader = nullptr;
 	}
 
-	loginMessage += "\nLatest Commits:\n";
-	loginMessage += ConfigManager::instance()->getRevision();
+	// pswg - don't show commits in MOTD message
+	// loginMessage += "\nLatest Commits:\n";
+	// loginMessage += ConfigManager::instance()->getRevision();
 
 	delete reader;
 	delete file;
