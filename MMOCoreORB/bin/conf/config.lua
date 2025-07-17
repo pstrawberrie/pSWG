@@ -251,6 +251,10 @@ Core3 = {
 	TermsOfService = "",
 
 	------Game------
+	ConfigManager = {
+		MaxCharactersPerGalaxy = 3,
+	},
+
 	PlayerManager = {
 		WipeFillingOnClone = 1,
 		GalaxyWideGrouping = 1,
