@@ -36,8 +36,12 @@ void ArmorObjectMenuComponent::fillObjectMenuResponse(SceneObject* sceneObject, 
 			return;
 	}
 
-	String text = "Color Change";
-	menuResponse->addRadialMenuItem(81, 3, text);
+
+	// String text = "Color Change";
+	// menuResponse->addRadialMenuItem(81, 3, text);
+	if (!parent->isPlayerCreature()) {
+		menuResponse->addRadialMenuItem(81, 3, "Modify Color");
+	}
 
 	WearableObjectMenuComponent::fillObjectMenuResponse(sceneObject, menuResponse, player);
 }
