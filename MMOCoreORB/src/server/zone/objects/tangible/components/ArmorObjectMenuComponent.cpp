@@ -78,12 +78,6 @@ int ArmorObjectMenuComponent::handleObjectMenuSelect(SceneObject* sceneObject, C
 			VectorMap<String, Reference<CustomizationVariable*> > variables;
 			AssetCustomizationManagerTemplate::instance()->getCustomizationVariables(appearanceFilename.hashCode(), variables, false);
 
-			// The Sui Box.
-			ManagedReference<SuiColorBox*> cbox = new SuiColorBox(player, SuiWindowType::COLOR_ARMOR);
-			cbox->setCallback(new ColorArmorSuiCallback(server));
-			cbox->setColorPalette(variables.elementAt(1).getKey()); // First one seems to be the frame of it? Skip to 2nd.
-			cbox->setUsingObject(sceneObject);
-
 			int skillMod = 255; //player->getSkillMod("armor_customization");
 
 			/*
@@ -93,14 +87,24 @@ int ArmorObjectMenuComponent::handleObjectMenuSelect(SceneObject* sceneObject, C
 				skillMod = 255;
 			*/
 
-			cbox->setSkillMod(skillMod);
-
 			// Add to player.
 			ManagedReference<PlayerObject*> ghost = player->getPlayerObject();
 
 			if (ghost != nullptr) {
-				ghost->addSuiBox(cbox);
-				player->sendMessage(cbox->generateMessage());
+				for (int i = 0; i < variables.size(); i++) {
+					String varkey = variables.elementAt(i).getKey();
+					if (varkey.contains("color")) {
+						// The Sui Box.
+						ManagedReference<SuiColorBox*> cbox = new SuiColorBox(player, SuiWindowType::COLOR_ARMOR);
+						cbox->setCallback(new ColorArmorSuiCallback(server));
+						cbox->setColorPalette(variables.elementAt(i).getKey()); // Use the key for this color index
+						cbox->setUsingObject(sceneObject);
+						cbox->setSkillMod(skillMod);
+
+						ghost->addSuiBox(cbox);
+						player->sendMessage(cbox->generateMessage());
+					}
+				}
 			}
 		}
 
