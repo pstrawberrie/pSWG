@@ -75,11 +75,17 @@ void WearableObjectImplementation::generateSockets(CraftingValues* craftingValue
 			if (player != nullptr && draftSchematic != nullptr) {
 				String assemblySkill = draftSchematic->getAssemblySkill();
 
-				skill = player->getSkillMod(assemblySkill);
+				skill = player->getSkillMod(assemblySkill) + player->getSkillMod("force_assembly");  // pswg - Infinity:  Include force assembly
 
 				if (MIN_SOCKET_MOD > skill)
 					return;
 
+				skill *= 3.4483;  // pswg - Infinity: 0 to 500 max  (345 for master crafter, no tapes, no force assembly, 500 for all mods)
+				
+				// pswg - Infinity: Let's cap the chance of 4-sockets at 90% before luck
+				if (skill > 450)
+					skill = 450;
+				
 				luck = System::random(player->getSkillMod("luck") + player->getSkillMod("force_luck"));
 			}
 		}
@@ -94,18 +100,28 @@ void WearableObjectImplementation::generateSockets(CraftingValues* craftingValue
 		bonusMod = System::random(bonusMod);
 	}
 
-	int skillAdjust = skill + System::random(luck) + bonusMod;
-	int maxMod = 65 + System::random(skill);
+	// pswg - infinity socket chances
+	// int skillAdjust = skill + System::random(luck) + bonusMod;
+	// int maxMod = 65 + System::random(skill);
 
-	float randomSkill = System::random(skillAdjust) * 10;
-	float roll = randomSkill / (400.f + maxMod);
+	// float randomSkill = System::random(skillAdjust) * 10;
+	// float roll = randomSkill / (400.f + maxMod);
 
-	float generatedCount = roll * MAXSOCKETS;
+	// float generatedCount = roll * MAXSOCKETS;
+
+	// if (generatedCount > MAXSOCKETS)
+	// 	generatedCount = MAXSOCKETS;
+	// else if (generatedCount > 3 && generatedCount <= 3.75f)
+	// 	generatedCount = floor(generatedCount);
+
+	int random = (System::random(500)) - 100; // pswg - Infinity: -100 to 400 90% chance of 4 sockets w/ master, +25 assembly tapes, & +20 force assembly, 69% chance of 4 sockets with master only, 13.8% at novice   
+	float roll = skill + random + luck;
+	float generatedCount = roll / 100.0f;
 
 	if (generatedCount > MAXSOCKETS)
 		generatedCount = MAXSOCKETS;
-	else if (generatedCount > 3 && generatedCount <= 3.75f)
-		generatedCount = floor(generatedCount);
+	if (generatedCount < 0)
+		generatedCount = 0;
 
 	usedSocketCount = 0;
 	socketCount = (int)generatedCount;
