@@ -15,14 +15,16 @@ BaseMessage* SuiColorBoxImplementation::generateMessage() {
 	addHeader("bg.caption.lblTitle", "Text");
 
 	//Set Body Options:
-	addSetting("3", "bg.caption.lblTitle", "Text", "@base_player:swg");
-
 	StringBuffer id;
 	id << usingObject.get()->getObjectID();
 
 	if (skillMod <= 0)
 		skillMod = 500;
 
+	if (promptTitle == "")
+		promptTitle = "@base_player:swg";
+	
+	addSetting("3", "bg.caption.lblTitle", "Text", promptTitle);
 	addSetting("3", "ColorPicker", "TargetNetworkId", id.toString().toCharArray());
 	addSetting("3", "ColorPicker", "TargetVariable", variable.toCharArray());
 	addSetting("3", "ColorPicker", "TargetRangeMax", String::valueOf(skillMod));

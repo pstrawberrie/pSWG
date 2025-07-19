@@ -96,6 +96,7 @@ int ArmorObjectMenuComponent::handleObjectMenuSelect(SceneObject* sceneObject, C
 					if (varkey.contains("color")) {
 						// The Sui Box.
 						ManagedReference<SuiColorBox*> cbox = new SuiColorBox(player, SuiWindowType::COLOR_ARMOR);
+						cbox->setPromptTitle("Color " + String::valueOf(i + 1));
 						cbox->setCallback(new ColorArmorSuiCallback(server));
 						cbox->setColorPalette(variables.elementAt(i).getKey()); // Use the key for this color index
 						cbox->setUsingObject(sceneObject);
