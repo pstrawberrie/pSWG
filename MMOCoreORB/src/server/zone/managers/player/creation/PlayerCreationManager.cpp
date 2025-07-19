@@ -572,7 +572,7 @@ bool PlayerCreationManager::createCharacter(ClientCreateCharacterCallback* callb
 	String playerFirstName = playerCreature->getFirstName();
 	// String playerLastName = playerCreature->getFirstName();
 	StringBuffer zBroadcast;
-	zBroadcast << "\\#ffb90f pSWG has a new arrival. Welcome, " << "\\#00ace6" << playerFirstName;
+	zBroadcast << "" << "\\#ffb90f pSWG has a new arrival. Welcome, " << "\\#00ace6" << playerFirstName;
 	playerCreature->getZoneServer()->getChatManager()->broadcastGalaxy(NULL, zBroadcast.toString());
 
 	ghost->addSuiBox(box);
