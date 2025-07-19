@@ -570,9 +570,9 @@ bool PlayerCreationManager::createCharacter(ClientCreateCharacterCallback* callb
 
 	// Broadcast new players joining
 	String playerFirstName = playerCreature->getFirstName();
-	String playerLastName = playerCreature->getFirstName();
+	// String playerLastName = playerCreature->getFirstName();
 	StringBuffer zBroadcast;
-	zBroadcast << "\\#00ace6" << playerFirstName << " " << playerLastName << " \\#ffb90f has entered the galaxy";
+	zBroadcast << "\\#ffb90f pSWG has a new arrival. Welcome, " << "\\#00ace6" << playerFirstName;
 	playerCreature->getZoneServer()->getChatManager()->broadcastGalaxy(NULL, zBroadcast.toString());
 
 	ghost->addSuiBox(box);
