@@ -561,7 +561,7 @@ bool PlayerCreationManager::createCharacter(ClientCreateCharacterCallback* callb
 		jtlMailTask->schedule(10000);
 	}
 
-	//Join auction chat room
+	// Join auction chat room
 	ghost->addChatRoom(chatManager->getAuctionRoom()->getRoomID());
 
 	ManagedReference<SuiMessageBox*> box = new SuiMessageBox(playerCreature, SuiWindowType::NONE);
@@ -570,9 +570,14 @@ bool PlayerCreationManager::createCharacter(ClientCreateCharacterCallback* callb
 
 	// Broadcast new players joining
 	String playerFirstName = playerCreature->getFirstName();
-	// String playerLastName = playerCreature->getFirstName();
+	String playerLastName = playerCreature->getLastName();
+
 	StringBuffer zBroadcast;
-	zBroadcast << "" << "\\#ffb90f pSWG has a new arrival. Welcome, " << "\\#00ace6" << playerFirstName;
+	zBroadcast << "\\#ffb90fYour midichlorians tingle. \\#00ace6" << playerFirstName;
+	if (!playerLastName.isEmpty()) {
+		zBroadcast << " " << playerLastName;
+	}
+	zBroadcast << " " << "\\#ffb90fhas just entered pSWG.";
 	playerCreature->getZoneServer()->getChatManager()->broadcastGalaxy(NULL, zBroadcast.toString());
 
 	ghost->addSuiBox(box);

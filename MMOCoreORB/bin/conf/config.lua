@@ -268,6 +268,10 @@ Core3 = {
 		ListRequestCooldown = 1000
 	},
 
+	ChatManager = {
+		PvpBroadcastChannel = 1
+	},
+
 	------JTL------
 	JTL = {
 		JTLEnabled = "true"
