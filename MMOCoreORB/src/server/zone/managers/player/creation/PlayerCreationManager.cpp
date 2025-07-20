@@ -573,11 +573,11 @@ bool PlayerCreationManager::createCharacter(ClientCreateCharacterCallback* callb
 	String playerLastName = playerCreature->getLastName();
 
 	StringBuffer zBroadcast;
-	zBroadcast << "..." << "\\#757171Your midichlorians tingle. You sense the presence of \\#ffb90f" << playerFirstName;
+	zBroadcast << "..." << "\\#378080Your midichlorians tingle. You sense the presence of \\#ffb90f" << playerFirstName;
 	if (!playerLastName.isEmpty()) {
 		zBroadcast << " " << playerLastName;
 	}
-	zBroadcast << " " << "\\#757171in the galaxy.";
+	zBroadcast << " " << "\\#378080in the galaxy.";
 	playerCreature->getZoneServer()->getChatManager()->broadcastGalaxy(NULL, zBroadcast.toString());
 
 	ghost->addSuiBox(box);
